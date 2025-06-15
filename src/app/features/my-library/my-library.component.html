@@ -1,1 +1,68 @@
-<p>my-library works!</p>
+<main class="container my-5">
+    <h2 class="text-center mb-5 display-5 fw-bold text-light" id="library-title">Mi Biblioteca Personal</h2>
+    <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>
+	<div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+    <section id="filter-options" class="search-filter row mb-4 gx-3 justify-content-center">
+        <div class="col-md-5 col-lg-4 mb-3">
+            <input type="text" id="search-input" class="form-control" placeholder="Buscar por título o descripción..." [(ngModel)]="searchTerm" (ngModelChange)="filterAndRenderGames()">
+        </div>
+        <div class="col-md-3 col-lg-2 mb-3">
+            <select id="status-filter" class="form-select" [(ngModel)]="selectedStatus" (ngModelChange)="filterAndRenderGames()">
+                <option value="">Todos los estados</option>
+                <option value="jugado">Jugado</option>
+                <option value="pendiente">Pendiente</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-lg-2 mb-3">
+            <select id="favorite-filter" class="form-select" [(ngModel)]="selectedFavorite" (ngModelChange)="filterAndRenderGames()">
+                <option value="">Todos los favoritos</option>
+                <option value="favorito">Favorito</option>
+                <option value="no-favorito">No Favorito</option>
+            </select>
+        </div>
+    </section>
+    <div id="library-content">
+        <ng-container *ngIf="currentUser; else notLoggedIn">
+            <ng-container *ngIf="filteredGames.length > 0; else noGamesFound">
+                <div id="games-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    <div class="col" *ngFor="let game of filteredGames">
+                        <app-game-card
+                            [game]="game"
+                            [showLibraryControls]="true"
+                            (viewDetails)="openGameDetailModal($event)"
+                            (toggleFavorite)="handleToggleFavorite($event)"
+                            (togglePlayed)="handleTogglePlayed($event)"
+                            (updateHours)="handleUpdateHoursPlayed($event)"
+                            (deleteGame)="handleDeleteGameConfirmation($event)">
+                        </app-game-card>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noGamesFound>
+                <div class="p-5 text-light rounded-lg shadow-xl text-center">
+                    <h3 class="text-2xl font-bold mb-4">No se encontraron juegos con los filtros aplicados.</h3>
+                    <p>Intenta ajustar tus criterios de búsqueda o filtro.</p>
+                </div>
+            </ng-template>
+        </ng-container>
+        <ng-template #notLoggedIn>
+            <div class="p-5 bg-secondary text-light rounded-lg shadow-xl text-center">
+                <h3 class="text-3xl font-bold mb-4">¡Bienvenido a la Biblioteca de Videojuegos!</h3>
+                <p class="opacity-75 mb-6">Inicia sesión o regístrate para gestionar tu propia biblioteca personal.</p>
+                <p class="opacity-75 text-sm">Puedes usar <code>admin</code> / <code>Admin123!</code> o <code>user1</code> / <code>User123!</code>.</p>
+                <a routerLink="/login" class="btn btn-primary mt-3">Iniciar Sesión</a>
+            </div>
+        </ng-template>
+    </div>
+</main>
+
+<!-- Modal de detalles del juego -->
+<app-game-detail-modal [game]="selectedGameForModal"></app-game-detail-modal>
+
+<!-- Modal de Confirmación -->
+<app-confirmation-modal
+    [title]="confirmationModalTitle"
+    [message]="confirmationModalMessage"
+    [confirmButtonText]="confirmationModalConfirmText"
+    (confirmed)="onDeleteConfirmation($event)">
+</app-confirmation-modal>

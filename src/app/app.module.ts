@@ -15,7 +15,8 @@ import { RegisterComponent } from './features/register/register.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { RecoverPasswordComponent } from './features/recover-password/recover-password.component';
 import { AuthService } from './core/auth/auth.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +31,14 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     UserProfileComponent,
-    RecoverPasswordComponent
+    RecoverPasswordComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

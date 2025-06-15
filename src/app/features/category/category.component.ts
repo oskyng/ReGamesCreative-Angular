@@ -191,7 +191,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 		}
 
 		const result = this.gameService.addGame(currentUser.username, game);
-		alert(result.message);
+		this.message = result.message;
 	}
 
 	// Abre el modal de detalles del juego y pasa el juego seleccionado

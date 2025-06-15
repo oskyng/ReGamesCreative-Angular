@@ -10,6 +10,9 @@ declare let bootstrap: any;
 	styleUrls: ['./game-detail-modal.component.css']
 })
 export class GameDetailModalComponent {
+	message = '';
+	error = '';
+
 	@Input() game: Game | null = null;
 
 	@Output() achievementUpdated = new EventEmitter<{ gameId: number, achievementIndex: number, completed: boolean }>();
@@ -23,7 +26,7 @@ export class GameDetailModalComponent {
 	) { }
 
 	ngAfterViewInit(): void {
-		if (this.modalElementRef && this.modalElementRef.nativeElement) {
+		if (this.modalElementRef?.nativeElement) {
 			this.bsModal = new bootstrap.Modal(this.modalElementRef.nativeElement);
 
 			this.modalElementRef.nativeElement.addEventListener('hidden.bs.modal', () => {
@@ -37,10 +40,22 @@ export class GameDetailModalComponent {
 		}
 	}
 
+	show(): void {
+		if (this.bsModal) {
+			this.bsModal.show();
+		}
+	}
+
+	hide(): void {
+		if (this.bsModal) {
+			this.bsModal.hide();
+		}
+	}
+
 	onAchievementChange(gameId: number, achievementIndex: number, event: Event): void {
 		const currentUser = this.authService.getCurrentUser;
 		if (!currentUser) {
-			alert("Debes iniciar sesión para guardar el progreso de logros.");
+			this.error = 'Debes iniciar sesión para guardar el progreso de logros.';
 			(event.target as HTMLInputElement).checked = !(event.target as HTMLInputElement).checked;
 			return;
 		}
@@ -50,7 +65,7 @@ export class GameDetailModalComponent {
 		const userGames = this.gameService.getUserGames(currentUser.username);
 		const gameToUpdate = userGames.find(g => g.id === gameId);
 
-		if (gameToUpdate && gameToUpdate.achievements && gameToUpdate.achievements[achievementIndex]) {
+		if (gameToUpdate?.achievements) {
 			gameToUpdate.achievements[achievementIndex].completed = isCompleted;
 			this.gameService.updateGame(currentUser.username, gameToUpdate);
 			this.achievementUpdated.emit({ gameId, achievementIndex, completed: isCompleted });

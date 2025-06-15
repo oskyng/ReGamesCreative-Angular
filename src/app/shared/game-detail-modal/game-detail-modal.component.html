@@ -3,6 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-primary" id="gameDetailModalLabel">Detalles del Videojuego</h5>
+                <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>
+		        <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" *ngIf="game">
