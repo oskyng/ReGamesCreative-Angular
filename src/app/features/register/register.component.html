@@ -1,0 +1,45 @@
+<main class="container my-5 d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card-body shadow-lg p-4 p-md-5" style="max-width: 500px; width: 100%;">
+        <h1 class="text-center mb-5 text-primary">Registro</h1>
+        <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+        <form (ngSubmit)="onSubmit()" id="register-form" novalidate>
+            <div class="mb-3">
+                <label for="nombre" class="form-label text-primary">Nombre completo</label>
+                <input type="text" class="form-control" id="regFullNameInput" required>
+            </div>
+            <div class="mb-3">
+                <label for="usuario" class="form-label text-primary">Usuario</label>
+                <input type="text" class="form-control" id="regUsernameInput" [(ngModel)]="username" name="username" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label text-primary">Correo electrónico</label>
+                <input type="email" class="form-control" id="regEmailInput" [(ngModel)]="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaNacimiento" class="form-label text-primary">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="regBirthDayInput" [(ngModel)]="birthday" name="birthday" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label text-primary">Contraseña</label>
+                <input type="password" class="form-control" id="regPasswordInput" placeholder="********" [(ngModel)]="password" name="password" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmarPassword" class="form-label text-primary">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="regConfirmPasswordInput" placeholder="********" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+            </div>
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+            </div>
+            <p class="text-center">
+                ¿Ya tienes una cuenta? <a routerLink="/login" class="text-primary text-decoration-none">Inicia sesión aquí</a>
+            </p>
+            <div id="register-message" class="mt-3 text-center"></div>
+        </form>
+    </div>
+
+</main>

@@ -1,0 +1,26 @@
+<main class="container my-5 d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+	<div class="card-body shadow-lg p-4 p-md-5" style="max-width: 500px; width: 100%;">
+		<h2 class="card-title text-center mb-4 text-light display-6 fw-bold">Iniciar Sesión</h2>
+		<div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>
+		<div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+		<form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+			<div class="mb-3">
+				<label for="usernameInput" class="form-label text-light">Nombre de Usuario</label>
+				<input type="email" class="form-control" id="usernameInput" placeholder="TuNombreDeUsuario" [(ngModel)]="username" name="username" required>
+			</div>
+			<div class="mb-3">
+				<label for="passwordInput" class="form-label text-light">Contraseña</label>
+				<input type="password" class="form-control" id="passwordInput" placeholder="********" [(ngModel)]="password" name="password" required>
+			</div>
+			<div class="d-grid gap-2 mb-3">
+				<button type="submit" class="btn btn-primary btn-lg" [disabled]="!loginForm.form.valid">Entrar</button>
+			</div>
+			<p class="text-center">
+				<a routerLink="/recover-password" class="text-primary text-decoration-none">¿Olvidaste tu contraseña?</a>
+			</p>
+			<p class="text-center text-light">
+				¿No tienes una cuenta? <a routerLink="/register" class="text-primary text-decoration-none ">Regístrate aquí</a>
+			</p>
+		</form>
+	</div>
+</main>

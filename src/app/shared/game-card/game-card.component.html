@@ -1,0 +1,39 @@
+<div class="card h-100 game-card shadow-sm border-0"
+     [attr.data-game-id]="game.id"
+     [attr.data-game-title]="game.title"
+     [attr.data-game-description]="game.description"
+     [attr.data-game-platform]="game.platform"
+     [attr.data-game-genre]="game.genre"
+     [attr.data-game-hours]="game.hoursPlayed"
+     [attr.data-game-image]="game.image"
+     [attr.data-game-achievements]="game.achievements ? (game.achievements | json) : '[]'">
+    <img [src]="game.image || 'https://placehold.co/400x250/374151/D1D5DB?text=No+Image'" class="card-img-top" [alt]="'Portada ' + game.title">
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title text-primary">{{ game.title }}</h5>
+        <p class="card-text small">Plataforma: {{ game.platform }} | Género: {{ game.genre }}</p>
+        <p class="card-text flex-grow-1">{{ game.description.substring(0, 100) }}{{ game.description.length > 100 ? '...' : '' }}</p>
+        <p class="card-text text-secondary"><i class="fas fa-clock me-2"></i>Horas de juego: {{ game.hoursPlayed }}h</p>
+
+        <div *ngIf="showLibraryControls" class="d-flex justify-content-between align-items-center mt-2">
+            <span class="badge" [ngClass]="game.played ? 'bg-success' : 'bg-warning'">{{ game.played ? 'Jugado' : 'Pendiente' }}</span>
+            <button class="btn btn-sm toggle-favorite-btn"
+                    [ngClass]="game.isFavorite ? 'btn-warning' : 'btn-outline-warning'"
+                    (click)="toggleFavorite.emit(game.id)">
+                <i class="fas fa-star"></i> {{ game.isFavorite ? 'Favorito' : 'Añadir a Fav.' }}
+            </button>
+        </div>
+        <div *ngIf="showLibraryControls" class="d-flex justify-content-between align-items-center mt-3">
+            <button type="button" class="btn btn-sm btn-info view-details-btn" data-bs-toggle="modal" data-bs-target="#gameDetailModal" (click)="viewDetails.emit(game)">Ver Detalles</button>
+            <button type="button" class="btn btn-sm btn-secondary toggle-played-btn" (click)="togglePlayed.emit(game.id)">{{ game.played ? 'Marcar Pend.' : 'Marcar Jugado' }}</button>
+            <button type="button" class="btn btn-sm btn-primary update-hours-btn" (click)="updateHours.emit(game.id)"><i class="fas fa-edit"></i> Horas</button>
+            <button type="button" class="btn btn-sm btn-danger delete-game-btn" (click)="deleteGame.emit(game.id)"><i class="fas fa-trash-alt"></i></button>
+        </div>
+        <div *ngIf="!showLibraryControls" class="d-flex justify-content-center align-items-center mt-3">
+            <button type="button" class="btn btn-sm btn-info view-details-btn me-2" data-bs-toggle="modal" data-bs-target="#gameDetailModal" (click)="viewDetails.emit(game)">Ver Detalles</button>
+            <button type="button" class="btn btn-sm btn-success add-to-user-library-btn" (click)="addGameToLibrary.emit(game)">
+                <i class="fas fa-plus-circle me-1"></i> Añadir a Mi Biblioteca
+            </button>
+        </div>
+        <div class="add-to-library-message mt-2 text-center text-sm"></div>
+    </div>
+</div>

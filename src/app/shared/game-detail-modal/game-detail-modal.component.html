@@ -1,0 +1,45 @@
+<div class="modal fade" id="gameDetailModal" tabindex="-1" aria-labelledby="gameDetailModalLabel" aria-hidden="true" #gameDetailModalElement>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="gameDetailModalLabel">Detalles del Videojuego</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="game">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img [src]="game.image" class="img-fluid rounded mb-3" [alt]="'Portada ' + game.title" id="modal-game-image" onerror="this.onerror=null;this.src='https://placehold.co/400x250/374151/D1D5DB?text=No+Image';">
+                    </div>
+                    <div class="col-md-8">
+                        <h3 class="text-light" id="modal-game-title">{{ game.title }}</h3>
+                        <p class="small">Plataforma: <span id="modal-game-platform">{{ game.platform }}</span> | Género: <span id="modal-game-genre">{{ game.genre }}</span></p>
+                        <p id="modal-game-description" class="text-light">{{ game.description }}</p>
+                        <p class="text-secondary"><i class="fas fa-clock me-2"></i>Horas de juego: <span id="modal-game-hours">{{ game.hoursPlayed }}h</span></p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-top border-secondary">
+                    <h4 class="text-light mb-3">Logros / Trofeos</h4>
+                    <div id="modal-game-achievements-list">
+                        <ng-container *ngIf="game.achievements && game.achievements.length > 0; else noAchievements">
+                            <div *ngFor="let achievement of game.achievements; let i = index" class="form-check text-light mb-2">
+                                <input class="form-check-input achievement-checkbox" type="checkbox"
+                                       [id]="'modal-achievement-' + game.id + '-' + i"
+                                       [checked]="achievement.completed"
+                                       (change)="onAchievementChange(game.id, i, $event)">
+                                <label class="form-check-label" [for]="'modal-achievement-' + game.id + '-' + i" [class.text-decoration-line-through]="achievement.completed">
+                                    {{ achievement.name }}
+                                </label>
+                            </div>
+                        </ng-container>
+                        <ng-template #noAchievements>
+                            <p class="text-light">No hay logros disponibles para este juego.</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
