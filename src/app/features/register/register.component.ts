@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, User } from 'src/app/core/auth/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { emptyStringValidator, emailValidator, minAgeValidator, passwordStrengthValidator, passwordsMatchValidator } from '../../utils/validator';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
+	registerMessage: string = '';
+	registerForm!: FormGroup;
+	private authSubscription!: Subscription;
+
 	fullName = '';
 	username = '';
 	email = '';
-	birthday = '';
+	birthDay = '';
 	password = '';
 	confirmPassword = '';
 	message = '';
@@ -19,53 +26,56 @@ export class RegisterComponent {
 
 	constructor(
 		private readonly authService: AuthService,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly fb: FormBuilder
 	) { }
 
+	ngOnInit(): void {
+		// Inicializa el formulario reactivo para el registro con validaciones personalizadas
+		this.registerForm = this.fb.group({
+			fullName: ['', [Validators.required, emptyStringValidator()]],
+			username: ['', [Validators.required, emptyStringValidator()]],
+			email: ['', [Validators.required, emailValidator()]],
+			birthDay: ['', [Validators.required, minAgeValidator(13)]],
+			password: ['', [Validators.required, passwordStrengthValidator()]],
+			confirmPassword: ['', [Validators.required]]
+		}, {
+			validators: passwordsMatchValidator('password', 'confirmPassword')
+		});
+
+		// Si el usuario ya está logueado, redirige al inicio para evitar que se registre de nuevo
+		this.authSubscription = this.authService.currentUser.subscribe(user => {
+			if (user) {
+				this.router.navigate(['/inicio']);
+			}
+		});
+		console.log(this.registerForm.invalid);
+		
+	}
+
 	onSubmit(): void {
-		this.message = '';
-		this.error = '';
-
-		if (!this.fullName || !this.username || !this.email || !this.birthday || !this.password || !this.confirmPassword) {
-			this.error = 'Todos los campos son obligatorios.';
+		if (this.registerForm.invalid) {
+			this.registerForm.markAllAsTouched();
+			this.registerMessage = '<div class="alert alert-danger">Error al enviar formulario. Por favor, revisa los campos.</div>';
 			return;
 		}
 
-		const age = this.ageCalculate(this.birthday);
-		if (age < 14) {
-			this.error = 'Debes tener al menos 14 años para registrarte.';
-			return;
-		}
-
-		if (this.password.length < 8) {
-			this.error = 'La contraseña debe tener al menos 8 caracteres.';
-			return;
-		}
-
-		if (this.password !== this.confirmPassword) {
-			this.error = 'Las contraseñas no coinciden.';
-			return;
-		}
-
-		const newUser: User = {
-			fullName: this.fullName,
-			username: this.username,
-			email: this.email,
-			birthDay: this.birthday,
-			password: this.password,
-			role: 'normal'
-		}
-
+		const newUser = this.registerForm.value;
 		const result = this.authService.register(newUser);
+
 		if (result.success) {
-			this.message = 'Registro exitoso. Redirigiendo a Login...';
-			setTimeout(() => {
-				this.router.navigate(['/login']);
-			}, 1000);
+			this.registerMessage = '<div class="alert alert-success">Registro exitoso. Redirigiendo a Login...</div>';
+			setTimeout(() => { this.router.navigate(['/login']); }, 1000);
 		} else {
-			this.error = result.message ?? 'Error al enviar formulario.';
+			this.registerMessage = `<div class="alert alert-danger">${result.message}</div>`;
 		}
 
+	}
+
+	ngOnDestroy(): void {
+		if (this.authSubscription) {
+			this.authSubscription.unsubscribe();
+		}
 	}
 
 	private ageCalculate(fecha: string): number {

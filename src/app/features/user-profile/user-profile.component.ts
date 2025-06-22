@@ -11,9 +11,6 @@ import { emailValidator, emptyStringValidator, minAgeValidator, passwordStrength
 	styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-	message = '';
-	error = '';
-
 	currentUser: User | null = null;
 	profileForm!: FormGroup;
 	profileMessage: string = '';

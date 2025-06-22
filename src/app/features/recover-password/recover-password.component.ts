@@ -1,28 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { emailValidator, passwordStrengthValidator, passwordsMatchValidator } from 'src/app/utils/validator';
 
 @Component({
 	selector: 'app-recover-password',
 	templateUrl: './recover-password.component.html',
 	styleUrls: ['./recover-password.component.css']
 })
-export class RecoverPasswordComponent implements OnInit {
-	message = '';
-	error = '';
-	email = '';
-	password ='';
-	confirmPassword = ''; 
+export class RecoverPasswordComponent implements OnInit, OnDestroy {
+	recoveryForm!: FormGroup;
+	recoveryMessage: string = '';
+	private authSubscription!: Subscription;
 
 	constructor(
 		private readonly authService: AuthService,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly fb: FormBuilder
 	) { }
 
 	ngOnInit(): void {
-		if (this.authService.getCurrentUser) {
-			this.router.navigate(['/home']);
+		// Inicializa el formulario reactivo para la recuperación de contraseña
+		this.recoveryForm = this.fb.group({
+			email: ['', [Validators.required, emailValidator()]],
+			newPassword: ['', [Validators.required, passwordStrengthValidator()]],
+			confirmPassword: ['', [Validators.required]]
+		}, {
+			validators: passwordsMatchValidator('newPassword', 'confirmPassword')
+		});
+
+		// Si el usuario ya está logueado, redirige al inicio
+		this.authSubscription = this.authService.currentUser.subscribe(user => {
+			if (user) {
+				this.router.navigate(['/inicio']);
+			}
+		});
+	}
+
+	onSubmit(): void {
+		if (this.recoveryForm.invalid) {
+			this.recoveryForm.markAllAsTouched();
+			this.recoveryMessage = '<div class="alert alert-danger">Error al enviar formulario. Por favor, revisa los campos.</div>';
+			return;
+		}
+
+		const { email, newPassword } = this.recoveryForm.value;
+		const result = this.authService.updatePassword(email, newPassword);
+
+		if (result.success) {
+			this.recoveryMessage = `<div class="alert alert-success">${result.message}</div>`;
+			setTimeout(() => { this.router.navigate(['/login']); }, 1000);
+		} else {
+			this.recoveryMessage = `<div class="alert alert-danger">${result.message}</div>`;
 		}
 	}
-	onSubmit(): void { }
+
+	ngOnDestroy(): void {
+		if (this.authSubscription) {
+			this.authSubscription.unsubscribe();
+		}
+	}
 }

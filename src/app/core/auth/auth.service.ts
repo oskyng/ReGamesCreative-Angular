@@ -39,7 +39,7 @@ export class AuthService {
 					fullName: "Oscar Sanzana",
 					username: 'admin',
 					email: "oscar.sanzana.97@gmail.com",
-					birthDay: "17/11/1997",
+					birthDay: "1997-11-17",
 					password: 'Admin123!',
 					role: 'admin'
 				}

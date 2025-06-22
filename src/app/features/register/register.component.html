@@ -1,44 +1,61 @@
 <main class="container my-5 d-flex justify-content-center align-items-center" style="min-height: 60vh;">
     <div class="card-body shadow-lg p-4 p-md-5" style="max-width: 500px; width: 100%;">
         <h1 class="text-center mb-5 text-primary">Registro</h1>
-        <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>
-        <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
-        <form (ngSubmit)="onSubmit()" id="register-form" novalidate>
+        <div [innerHTML]="registerMessage" class="mt-3 text-center"></div>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"  novalidate>
             <div class="mb-3">
-                <label for="nombre" class="form-label text-primary">Nombre completo</label>
-                <input type="text" class="form-control" id="regFullNameInput" required>
+                <label for="regFullNameInput" class="form-label text-primary">Nombre completo</label>
+                <input type="text" class="form-control" id="regFullNameInput" formControlName="fullName" required
+                    [class.is-invalid]="registerForm.get('fullName')?.invalid && (registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched)">
+                <div class="invalid-feedback" *ngIf="registerForm.get('fullName')?.errors?.['required']">Este campo es obligatorio.</div>
+                <div class="invalid-feedback" *ngIf="registerForm.get('fullName')?.errors?.['emptyString']">Debes ingresar tu nombre completo.</div>
             </div>
             <div class="mb-3">
-                <label for="usuario" class="form-label text-primary">Usuario</label>
-                <input type="text" class="form-control" id="regUsernameInput" [(ngModel)]="username" name="username" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label text-primary">Correo electrónico</label>
-                <input type="email" class="form-control" id="regEmailInput" [(ngModel)]="email" name="email" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="fechaNacimiento" class="form-label text-primary">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="regBirthDayInput" [(ngModel)]="birthday" name="birthday" required>
+                <label for="regUsernameInput" class="form-label text-primary">Usuario</label>
+                <input type="text" class="form-control" id="regUsernameInput" formControlName="username" required
+                    [class.is-invalid]="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)">
+                <div class="invalid-feedback" *ngIf="registerForm.get('username')?.errors?.['required']">Debes ingresar un nombre de usuario.</div>
+                <div class="invalid-feedback" *ngIf="registerForm.get('username')?.errors?.['emptyString']">Debes ingresar un nombre de usuario.</div>
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label text-primary">Contraseña</label>
-                <input type="password" class="form-control" id="regPasswordInput" placeholder="********" [(ngModel)]="password" name="password" required>
+                <label for="regEmailInput" class="form-label text-primary">Correo electrónico</label>
+                <input type="email" class="form-control" id="regEmailInput" formControlName="email" required
+                    [class.is-invalid]="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['required']">Este campo es obligatorio.</div>
+                <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['invalidEmail']">Correo inválido.</div>
             </div>
 
             <div class="mb-3">
-                <label for="confirmarPassword" class="form-label text-primary">Confirmar contraseña</label>
-                <input type="password" class="form-control" id="regConfirmPasswordInput" placeholder="********" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+                <label for="regbirthDayInput" class="form-label text-primary">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="regbirthDayInput" formControlName="birthDay" required
+                    [class.is-invalid]="registerForm.get('birthDay')?.invalid && (registerForm.get('birthDay')?.dirty || registerForm.get('birthDay')?.touched)">
+                <div class="invalid-feedback" *ngIf="registerForm.get('birthDay')?.errors?.['required']">Este campo es obligatorio.</div>
+                <div class="invalid-feedback" *ngIf="registerForm.get('birthDay')?.errors?.['minAge']">Debes tener al menos 13 años.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="regPasswordInput" class="form-label text-primary">Contraseña</label>
+                <input type="password" class="form-control" id="regPasswordInput" formControlName="password" placeholder="********" required
+                    [class.is-invalid]="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+                <div class="invalid-feedback" *ngIf="registerForm.get('password')?.errors?.['required']">Este campo es obligatorio.</div>
+                <div class="invalid-feedback" *ngIf="registerForm.get('password')?.errors?.['passwordStrength']">Debe tener mínimo 8 caracteres, 1 número, 1 mayúscula y 1 caracter especial.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="regConfirmPasswordInput" class="form-label text-primary">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="regConfirmPasswordInput" formControlName="confirmPassword" required
+                    [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) || registerForm.errors?.['passwordsMismatch']">
+                <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Este campo es obligatorio.</div>
+                <div class="invalid-feedback" *ngIf="registerForm.errors?.['passwordsMismatch']">Las contraseñas no coinciden.</div>
             </div>
             <div class="d-grid gap-2 d-md-block">
-                <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+                <button type="submit" class="btn btn-primary btn-lg me-2" [disabled]="registerForm.invalid">Enviar</button>
+                <button type="reset" class="btn btn-secondary btn-lg" (click)="registerForm.reset()">Limpiar</button>
             </div>
-            <p class="text-center">
-                ¿Ya tienes una cuenta? <a routerLink="/login" class="text-primary text-decoration-none">Inicia sesión aquí</a>
-            </p>
-            <div id="register-message" class="mt-3 text-center"></div>
+            <p class="text-center mt-3">
+                    ¿Ya tienes una cuenta? <a routerLink="/login" class="text-primary text-decoration-none">Inicia sesión aquí</a>
+                </p>
         </form>
     </div>
 
