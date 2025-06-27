@@ -3,6 +3,22 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, View
 // Importa la función Modal de Bootstrap
 declare let bootstrap: any;
 
+/**
+ * @description 
+ * Componente reutilizable para mostrar un modal de confirmación genérico.
+ * @summary 
+ * Permite configurar el título, el mensaje y el texto del botón de confirmación.
+ * Emite un evento cuando el usuario confirma o cancela la acción.
+ * @usageNotes
+ * ```html
+ * <app-confirmation-modal
+ * [title]="'Eliminar Item'"
+ * [message]="'¿Estás seguro de que quieres eliminar este item?'"
+ * [confirmButtonText]="'Sí, eliminar'"
+ * (confirmed)="onConfirmationResult($event)">
+ * </app-confirmation-modal>
+ * ```
+ */
 @Component({
 	selector: 'app-confirmation-modal',
 	templateUrl: './confirmation-modal.component.html',

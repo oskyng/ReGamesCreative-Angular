@@ -5,6 +5,18 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { emailValidator, passwordStrengthValidator, passwordsMatchValidator } from 'src/app/utils/validator';
 
+/**
+ * @description 
+ * Componente para la recuperación de contraseña de usuarios.
+ * @summary 
+ * Permite a los usuarios actualizar su contraseña proporcionando su correo electrónico
+ * y una nueva contraseña que cumpla con los requisitos de seguridad. Utiliza formularios reactivos
+ * y validadores personalizados.
+ * @usageNotes
+ * ```html
+ * <app-recover-password></app-recover-password>
+ * ```
+ */
 @Component({
 	selector: 'app-recover-password',
 	templateUrl: './recover-password.component.html',

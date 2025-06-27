@@ -5,6 +5,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { emptyStringValidator, emailValidator, minAgeValidator, passwordStrengthValidator, passwordsMatchValidator } from '../../utils/validator';
 import { Subscription } from 'rxjs';
 
+/**
+ * @description 
+ * Componente para el registro de nuevos usuarios.
+ * @summary 
+ * Permite a los usuarios crear una nueva cuenta proporcionando sus datos personales
+ * y una contraseña segura. Incluye validación de formularios reactivos con validadores personalizados.
+ * @usageNotes
+ * ```html
+ * <app-register></app-register>
+ * ```
+ */
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
@@ -76,19 +87,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		if (this.authSubscription) {
 			this.authSubscription.unsubscribe();
 		}
-	}
-
-	private ageCalculate(fecha: string): number {
-		const today = new Date();
-		const birthDate = new Date(fecha);
-
-		let age = today.getFullYear() - birthDate.getFullYear();
-		const month = today.getMonth() - birthDate.getMonth();
-
-		if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-			age--;
-		}
-
-		return age;
 	}
 }

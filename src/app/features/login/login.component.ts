@@ -5,6 +5,17 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { emptyStringValidator } from 'src/app/utils/validator';
 
+/**
+ * @description 
+ * Componente para el inicio de sesión de usuarios.
+ * @summary 
+ * Permite a los usuarios ingresar sus credenciales (nombre de usuario y contraseña)
+ * para autenticarse en la aplicación. Utiliza formularios reactivos y validadores personalizados.
+ * @usageNotes
+ * ```html
+ * <app-login></app-login>
+ * ```
+ */
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',

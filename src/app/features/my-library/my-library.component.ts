@@ -1,10 +1,23 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { catchError, of, Subscription } from 'rxjs';
+import { ApiService } from 'src/app/core/api/api.service';
 import { AuthService, User } from 'src/app/core/auth/auth.service';
 import { Game, GameService } from 'src/app/core/game/game.service';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { GameDetailModalComponent } from 'src/app/shared/game-detail-modal/game-detail-modal.component';
 
+/**
+ * @description 
+ * Componente para mostrar y gestionar la biblioteca personal de videojuegos del usuario.
+ * @summary 
+ * Permite a los usuarios ver sus juegos, filtrarlos por estado (jugado/pendiente) y favorito,
+ * actualizar horas jugadas, marcar como favorito/no favorito, y eliminar juegos de su biblioteca.
+ * También integra modales para ver detalles del juego y confirmar eliminaciones.
+ * @usageNotes
+ * ```html
+ * <app-my-library></app-my-library>
+ * ```
+ */
 @Component({
 	selector: 'app-my-library',
 	templateUrl: './my-library.component.html',
@@ -37,7 +50,8 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private readonly authService: AuthService,
-		private readonly gameService: GameService
+		private readonly gameService: GameService,
+		private readonly rawgApiService: ApiService
 	) { }
 
 	ngOnInit(): void {
@@ -159,10 +173,20 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 
 	// Abre el modal de detalles del juego utilizando el componente modal hijo
 	openGameDetailModal(game: Game): void {
-		this.selectedGameForModal = game;
-		if (this.gameDetailModal) {
-			this.gameDetailModal.show();
-		}
+		this.rawgApiService.getGameDetails(game.id).pipe(
+			catchError(err => {
+				console.error('Error al obtener detalles completos del juego de RAWG API:', err);
+				return of(game);
+			})
+		).subscribe(fullDetailsGame => {
+			this.selectedGameForModal = {
+				...fullDetailsGame,
+				achievements: game.achievements
+			};
+			if (this.gameDetailModal) {
+				this.gameDetailModal.show();
+			}
+		});
 	}
 
 	ngOnDestroy(): void {

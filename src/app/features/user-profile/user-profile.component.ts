@@ -5,6 +5,18 @@ import { Subscription } from 'rxjs';
 import { AuthService, User } from 'src/app/core/auth/auth.service';
 import { emailValidator, emptyStringValidator, minAgeValidator, passwordStrengthValidator } from 'src/app/utils/validator';
 
+/**
+ * @description 
+ * Componente para mostrar y permitir la edición del perfil de usuario.
+ * @summary 
+ * Este componente carga los datos del usuario autenticado, los muestra en un formulario
+ * reactivo y permite al usuario actualizar su nombre completo, nombre de usuario y contraseña.
+ * Incluye validaciones y mensajes de estado.
+ * @usageNotes
+ * ```html
+ * <app-user-profile></app-user-profile>
+ * ```
+ */
 @Component({
 	selector: 'app-user-profile',
 	templateUrl: './user-profile.component.html',

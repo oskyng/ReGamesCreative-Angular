@@ -1,0 +1,1853 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>re-games-creative-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">re-games-creative-angular documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MyLibraryComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/my-library/my-library.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente para mostrar y gestionar la biblioteca personal de videojuegos del usuario.
+Permite a los usuarios ver sus juegos, filtrarlos por estado (jugado/pendiente) y favorito,
+actualizar horas jugadas, marcar como favorito/no favorito, y eliminar juegos de su biblioteca.
+También integra modales para ver detalles del juego y confirmar eliminaciones.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;app-my-library&gt;&lt;/app-my-library&gt;</code></pre></div>
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-my-library</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./my-library.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./my-library.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allUserGames" >allUserGames</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#authSubscription" >authSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#confirmationModal" >confirmationModal</a>
+                            </li>
+                            <li>
+                                <a href="#confirmationModalConfirmText" >confirmationModalConfirmText</a>
+                            </li>
+                            <li>
+                                <a href="#confirmationModalMessage" >confirmationModalMessage</a>
+                            </li>
+                            <li>
+                                <a href="#confirmationModalTitle" >confirmationModalTitle</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#filteredGames" >filteredGames</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#gameDetailModal" >gameDetailModal</a>
+                            </li>
+                            <li>
+                                <a href="#gameIdToDelete" >gameIdToDelete</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <a href="#selectedFavorite" >selectedFavorite</a>
+                            </li>
+                            <li>
+                                <a href="#selectedGameForModal" >selectedGameForModal</a>
+                            </li>
+                            <li>
+                                <a href="#selectedStatus" >selectedStatus</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#filterAndRenderGames" >filterAndRenderGames</a>
+                            </li>
+                            <li>
+                                <a href="#handleDeleteGameConfirmation" >handleDeleteGameConfirmation</a>
+                            </li>
+                            <li>
+                                <a href="#handleToggleFavorite" >handleToggleFavorite</a>
+                            </li>
+                            <li>
+                                <a href="#handleTogglePlayed" >handleTogglePlayed</a>
+                            </li>
+                            <li>
+                                <a href="#handleUpdateHoursPlayed" >handleUpdateHoursPlayed</a>
+                            </li>
+                            <li>
+                                <a href="#loadUserGames" >loadUserGames</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onDeleteConfirmation" >onDeleteConfirmation</a>
+                            </li>
+                            <li>
+                                <a href="#openGameDetailModal" >openGameDetailModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, gameService: <a href="../injectables/GameService.html" target="_self">GameService</a>, rawgApiService: <a href="../injectables/ApiService.html" target="_self">ApiService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/features/my-library/my-library.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>gameService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GameService.html" target="_self" >GameService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>rawgApiService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApiService.html" target="_self" >ApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterAndRenderGames"></a>
+                    <span class="name">
+                        <span ><b>filterAndRenderGames</b></span>
+                        <a href="#filterAndRenderGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterAndRenderGames()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDeleteGameConfirmation"></a>
+                    <span class="name">
+                        <span ><b>handleDeleteGameConfirmation</b></span>
+                        <a href="#handleDeleteGameConfirmation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleDeleteGameConfirmation(gameId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>gameId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleToggleFavorite"></a>
+                    <span class="name">
+                        <span ><b>handleToggleFavorite</b></span>
+                        <a href="#handleToggleFavorite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleToggleFavorite(gameId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>gameId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleTogglePlayed"></a>
+                    <span class="name">
+                        <span ><b>handleTogglePlayed</b></span>
+                        <a href="#handleTogglePlayed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleTogglePlayed(gameId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>gameId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleUpdateHoursPlayed"></a>
+                    <span class="name">
+                        <span ><b>handleUpdateHoursPlayed</b></span>
+                        <a href="#handleUpdateHoursPlayed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleUpdateHoursPlayed(gameId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>gameId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadUserGames"></a>
+                    <span class="name">
+                        <span ><b>loadUserGames</b></span>
+                        <a href="#loadUserGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadUserGames()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:192</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDeleteConfirmation"></a>
+                    <span class="name">
+                        <span ><b>onDeleteConfirmation</b></span>
+                        <a href="#onDeleteConfirmation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDeleteConfirmation(confirmed: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>confirmed</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openGameDetailModal"></a>
+                    <span class="name">
+                        <span ><b>openGameDetailModal</b></span>
+                        <a href="#openGameDetailModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openGameDetailModal(game: <a href="../interfaces/Game.html" target="_self">Game</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/features/my-library/my-library.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>game</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Game.html" target="_self" >Game</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allUserGames"></a>
+                    <span class="name">
+                        <span ><b>allUserGames</b></span>
+                        <a href="#allUserGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/features/my-library/my-library.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authSubscription</b></span>
+                        <a href="#authSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/features/my-library/my-library.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmationModal"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>confirmationModal</b></span>
+                        <a href="#confirmationModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/ConfirmationModalComponent.html" target="_self" >ConfirmationModalComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(ConfirmationModalComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/features/my-library/my-library.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmationModalConfirmText"></a>
+                    <span class="name">
+                        <span ><b>confirmationModalConfirmText</b></span>
+                        <a href="#confirmationModalConfirmText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/features/my-library/my-library.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmationModalMessage"></a>
+                    <span class="name">
+                        <span ><b>confirmationModalMessage</b></span>
+                        <a href="#confirmationModalMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/features/my-library/my-library.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmationModalTitle"></a>
+                    <span class="name">
+                        <span ><b>confirmationModalTitle</b></span>
+                        <a href="#confirmationModalTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/features/my-library/my-library.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/features/my-library/my-library.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/features/my-library/my-library.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredGames"></a>
+                    <span class="name">
+                        <span ><b>filteredGames</b></span>
+                        <a href="#filteredGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/features/my-library/my-library.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gameDetailModal"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>gameDetailModal</b></span>
+                        <a href="#gameDetailModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/GameDetailModalComponent.html" target="_self" >GameDetailModalComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(GameDetailModalComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/features/my-library/my-library.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gameIdToDelete"></a>
+                    <span class="name">
+                        <span ><b>gameIdToDelete</b></span>
+                        <a href="#gameIdToDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/features/my-library/my-library.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="message"></a>
+                    <span class="name">
+                        <span ><b>message</b></span>
+                        <a href="#message"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/features/my-library/my-library.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/features/my-library/my-library.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedFavorite"></a>
+                    <span class="name">
+                        <span ><b>selectedFavorite</b></span>
+                        <a href="#selectedFavorite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/features/my-library/my-library.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedGameForModal"></a>
+                    <span class="name">
+                        <span ><b>selectedGameForModal</b></span>
+                        <a href="#selectedGameForModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/features/my-library/my-library.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedStatus"></a>
+                    <span class="name">
+                        <span ><b>selectedStatus</b></span>
+                        <a href="#selectedStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/features/my-library/my-library.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { catchError, of, Subscription } from &#x27;rxjs&#x27;;
+import { ApiService } from &#x27;src/app/core/api/api.service&#x27;;
+import { AuthService, User } from &#x27;src/app/core/auth/auth.service&#x27;;
+import { Game, GameService } from &#x27;src/app/core/game/game.service&#x27;;
+import { ConfirmationModalComponent } from &#x27;src/app/shared/confirmation-modal/confirmation-modal.component&#x27;;
+import { GameDetailModalComponent } from &#x27;src/app/shared/game-detail-modal/game-detail-modal.component&#x27;;
+
+/**
+ * @description 
+ * Componente para mostrar y gestionar la biblioteca personal de videojuegos del usuario.
+ * @summary 
+ * Permite a los usuarios ver sus juegos, filtrarlos por estado (jugado/pendiente) y favorito,
+ * actualizar horas jugadas, marcar como favorito/no favorito, y eliminar juegos de su biblioteca.
+ * También integra modales para ver detalles del juego y confirmar eliminaciones.
+ * @usageNotes
+ * &#x60;&#x60;&#x60;html
+ * &lt;app-my-library&gt;&lt;/app-my-library&gt;
+ * &#x60;&#x60;&#x60;
+ */
+@Component({
+	selector: &#x27;app-my-library&#x27;,
+	templateUrl: &#x27;./my-library.component.html&#x27;,
+	styleUrls: [&#x27;./my-library.component.css&#x27;]
+})
+export class MyLibraryComponent implements OnInit, OnDestroy {
+	message &#x3D; &#x27;&#x27;;
+	error &#x3D; &#x27;&#x27;;
+
+	currentUser: User | null &#x3D; null;
+	allUserGames: Game[] &#x3D; [];
+	filteredGames: Game[] &#x3D; [];
+
+	searchTerm: string &#x3D; &#x27;&#x27;;
+	selectedStatus: string &#x3D; &#x27;&#x27;;
+	selectedFavorite: string &#x3D; &#x27;&#x27;;
+
+	selectedGameForModal: Game | null &#x3D; null;
+	gameIdToDelete: number | null &#x3D; null;
+
+	// Propiedades para el modal de confirmación
+	confirmationModalTitle: string &#x3D; &#x27;&#x27;;
+	confirmationModalMessage: string &#x3D; &#x27;&#x27;;
+	confirmationModalConfirmText: string &#x3D; &#x27;&#x27;;
+
+	private authSubscription!: Subscription;
+
+	@ViewChild(GameDetailModalComponent) gameDetailModal!: GameDetailModalComponent;
+	@ViewChild(ConfirmationModalComponent) confirmationModal!: ConfirmationModalComponent;
+
+	constructor(
+		private readonly authService: AuthService,
+		private readonly gameService: GameService,
+		private readonly rawgApiService: ApiService
+	) { }
+
+	ngOnInit(): void {
+		// Suscribe al estado de autenticación para cargar los juegos del usuario
+		this.authSubscription &#x3D; this.authService.currentUser.subscribe(user &#x3D;&gt; {
+			this.currentUser &#x3D; user;
+			if (this.currentUser) {
+				this.loadUserGames();
+			} else {
+				this.allUserGames &#x3D; [];
+				this.filteredGames &#x3D; [];
+			}
+		});
+	}
+
+	// Carga los juegos del usuario desde el GameService
+	loadUserGames(): void {
+		if (this.currentUser) {
+			this.allUserGames &#x3D; this.gameService.getUserGames(this.currentUser.username);
+			this.filterAndRenderGames();
+		}
+	}
+
+	// Filtra y renderiza los juegos en la vista
+	filterAndRenderGames(): void {
+		if (!this.currentUser) {
+			this.filteredGames &#x3D; [];
+			return;
+		}
+
+		const searchTermLower &#x3D; this.searchTerm.toLowerCase();
+		const selectedStatusValue &#x3D; this.selectedStatus;
+		const selectedFavoriteValue &#x3D; this.selectedFavorite;
+
+		this.filteredGames &#x3D; this.allUserGames.filter(game &#x3D;&gt; {
+			const matchesSearch &#x3D; game.title.toLowerCase().includes(searchTermLower) ||
+				game.description.toLowerCase().includes(searchTermLower) ||
+				game.platform.toLowerCase().includes(searchTermLower) ||
+				game.genre.toLowerCase().includes(searchTermLower);
+
+			const matchesStatus &#x3D; selectedStatusValue &#x3D;&#x3D;&#x3D; &#x27;&#x27; ||
+				(selectedStatusValue &#x3D;&#x3D;&#x3D; &#x27;jugado&#x27; &amp;&amp; game.played) ||
+				(selectedStatusValue &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27; &amp;&amp; !game.played);
+
+			const matchesFavorite &#x3D; selectedFavoriteValue &#x3D;&#x3D;&#x3D; &#x27;&#x27; ||
+				(selectedFavoriteValue &#x3D;&#x3D;&#x3D; &#x27;favorito&#x27; &amp;&amp; game.isFavorite) ||
+				(selectedFavoriteValue &#x3D;&#x3D;&#x3D; &#x27;no-favorito&#x27; &amp;&amp; !game.isFavorite);
+
+			return matchesSearch &amp;&amp; matchesStatus &amp;&amp; matchesFavorite;
+		});
+	}
+
+	// Maneja el toggle de favorito
+	handleToggleFavorite(gameId: number): void {
+		if (!this.currentUser) { this.error &#x3D; &#x27;Debes iniciar sesión para marcar favoritos.&#x27;; return; }
+		const gameToUpdate &#x3D; this.allUserGames.find(game &#x3D;&gt; game.id &#x3D;&#x3D;&#x3D; gameId);
+		if (gameToUpdate) {
+			gameToUpdate.isFavorite &#x3D; !gameToUpdate.isFavorite;
+			this.gameService.updateGame(this.currentUser.username, gameToUpdate);
+			this.filterAndRenderGames();
+		}
+	}
+
+	// Maneja el toggle de jugado/pendiente
+	handleTogglePlayed(gameId: number): void {
+		if (!this.currentUser) { this.error &#x3D; &#x27;Debes iniciar sesión para actualizar el estado.&#x27;; return; }
+		const gameToUpdate &#x3D; this.allUserGames.find(game &#x3D;&gt; game.id &#x3D;&#x3D;&#x3D; gameId);
+		if (gameToUpdate) {
+			gameToUpdate.played &#x3D; !gameToUpdate.played;
+			this.gameService.updateGame(this.currentUser.username, gameToUpdate);
+			this.filterAndRenderGames();
+		}
+	}
+
+	// Maneja la actualización de horas jugadas
+	handleUpdateHoursPlayed(gameId: number): void {
+		if (!this.currentUser) { this.error &#x3D; &#x27;Debes iniciar sesión para actualizar las horas.&#x27;; return; }
+		const gameToUpdate &#x3D; this.allUserGames.find(game &#x3D;&gt; game.id &#x3D;&#x3D;&#x3D; gameId);
+		if (gameToUpdate) {
+			const newHoursStr &#x3D; prompt(&#x60;Introduce las horas jugadas para &quot;${gameToUpdate.title}&quot;:&#x60;, String(gameToUpdate.hoursPlayed));
+			if (newHoursStr !&#x3D;&#x3D; null) {
+				const parsedHours &#x3D; parseFloat(newHoursStr);
+				if (!isNaN(parsedHours) &amp;&amp; parsedHours &gt;&#x3D; 0) {
+					gameToUpdate.hoursPlayed &#x3D; parsedHours;
+					this.gameService.updateGame(this.currentUser.username, gameToUpdate);
+					this.filterAndRenderGames();
+				} else {
+					this.error &#x3D; &#x27;Entrada no válida. Por favor, introduce un número positivo.&#x27;;
+				}
+			}
+		}
+	}
+
+	// Prepara y muestra el modal de confirmación para eliminar un juego
+	handleDeleteGameConfirmation(gameId: number): void {
+		if (!this.currentUser) {
+			this.error &#x3D; &#x27;Debes iniciar sesión para eliminar juegos.&#x27;;
+			return;
+		}
+		const gameToDelete &#x3D; this.allUserGames.find(game &#x3D;&gt; game.id &#x3D;&#x3D;&#x3D; gameId);
+		if (gameToDelete) {
+			this.gameIdToDelete &#x3D; gameId; // Almacena el ID del juego a eliminar
+			this.confirmationModalTitle &#x3D; &#x27;Eliminar Juego&#x27;;
+			this.confirmationModalMessage &#x3D; &#x60;¿Estás seguro de que quieres eliminar &quot;${gameToDelete.title}&quot; de tu biblioteca? Esta acción no se puede deshacer.&#x60;;
+			this.confirmationModalConfirmText &#x3D; &#x27;Eliminar&#x27;;
+			this.confirmationModal.show(); // Muestra el modal de confirmación
+		}
+	}
+
+	// Maneja la respuesta del modal de confirmación
+	onDeleteConfirmation(confirmed: boolean): void {
+		if (confirmed &amp;&amp; this.gameIdToDelete !&#x3D;&#x3D; null) {
+			if (!this.currentUser) { /* Esto no debería pasar si el guardián de arriba funciona */ return; }
+			this.gameService.deleteGame(this.currentUser.username, this.gameIdToDelete);
+			this.loadUserGames(); // Vuelve a cargar y renderizar los juegos
+		}
+		this.gameIdToDelete &#x3D; null; // Limpia el ID del juego a eliminar
+	}
+
+	// Abre el modal de detalles del juego utilizando el componente modal hijo
+	openGameDetailModal(game: Game): void {
+		this.rawgApiService.getGameDetails(game.id).pipe(
+			catchError(err &#x3D;&gt; {
+				console.error(&#x27;Error al obtener detalles completos del juego de RAWG API:&#x27;, err);
+				return of(game);
+			})
+		).subscribe(fullDetailsGame &#x3D;&gt; {
+			this.selectedGameForModal &#x3D; {
+				...fullDetailsGame,
+				achievements: game.achievements
+			};
+			if (this.gameDetailModal) {
+				this.gameDetailModal.show();
+			}
+		});
+	}
+
+	ngOnDestroy(): void {
+		if (this.authSubscription) {
+			this.authSubscription.unsubscribe();
+		}
+	}
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main class&#x3D;&quot;container my-5&quot;&gt;
+    &lt;h2 class&#x3D;&quot;text-center mb-5 display-5 fw-bold text-light&quot; id&#x3D;&quot;library-title&quot;&gt;Mi Biblioteca Personal&lt;/h2&gt;
+    &lt;div *ngIf&#x3D;&quot;message&quot; class&#x3D;&quot;alert alert-success mt-3 text-center&quot;&gt;{{ message }}&lt;/div&gt;
+	&lt;div *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert-danger mt-3 text-center&quot;&gt;{{ error }}&lt;/div&gt;
+    &lt;section id&#x3D;&quot;filter-options&quot; class&#x3D;&quot;search-filter row mb-4 gx-3 justify-content-center&quot;&gt;
+        &lt;div class&#x3D;&quot;col-md-5 col-lg-4 mb-3&quot;&gt;
+            &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;search-input&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Buscar por título o descripción...&quot; [(ngModel)]&#x3D;&quot;searchTerm&quot; (ngModelChange)&#x3D;&quot;filterAndRenderGames()&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3 col-lg-2 mb-3&quot;&gt;
+            &lt;select id&#x3D;&quot;status-filter&quot; class&#x3D;&quot;form-select&quot; [(ngModel)]&#x3D;&quot;selectedStatus&quot; (ngModelChange)&#x3D;&quot;filterAndRenderGames()&quot;&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Todos los estados&lt;/option&gt;
+                &lt;option value&#x3D;&quot;jugado&quot;&gt;Jugado&lt;/option&gt;
+                &lt;option value&#x3D;&quot;pendiente&quot;&gt;Pendiente&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3 col-lg-2 mb-3&quot;&gt;
+            &lt;select id&#x3D;&quot;favorite-filter&quot; class&#x3D;&quot;form-select&quot; [(ngModel)]&#x3D;&quot;selectedFavorite&quot; (ngModelChange)&#x3D;&quot;filterAndRenderGames()&quot;&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Todos los favoritos&lt;/option&gt;
+                &lt;option value&#x3D;&quot;favorito&quot;&gt;Favorito&lt;/option&gt;
+                &lt;option value&#x3D;&quot;no-favorito&quot;&gt;No Favorito&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+    &lt;div id&#x3D;&quot;library-content&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;currentUser; else notLoggedIn&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;filteredGames.length &gt; 0; else noGamesFound&quot;&gt;
+                &lt;div id&#x3D;&quot;games-list&quot; class&#x3D;&quot;row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4&quot;&gt;
+                    &lt;div class&#x3D;&quot;col&quot; *ngFor&#x3D;&quot;let game of filteredGames&quot;&gt;
+                        &lt;app-game-card
+                            [game]&#x3D;&quot;game&quot;
+                            [showLibraryControls]&#x3D;&quot;true&quot;
+                            (viewDetails)&#x3D;&quot;openGameDetailModal($event)&quot;
+                            (toggleFavorite)&#x3D;&quot;handleToggleFavorite($event)&quot;
+                            (togglePlayed)&#x3D;&quot;handleTogglePlayed($event)&quot;
+                            (updateHours)&#x3D;&quot;handleUpdateHoursPlayed($event)&quot;
+                            (deleteGame)&#x3D;&quot;handleDeleteGameConfirmation($event)&quot;&gt;
+                        &lt;/app-game-card&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #noGamesFound&gt;
+                &lt;div class&#x3D;&quot;p-5 text-light rounded-lg shadow-xl text-center&quot;&gt;
+                    &lt;h3 class&#x3D;&quot;text-2xl font-bold mb-4&quot;&gt;No se encontraron juegos con los filtros aplicados.&lt;/h3&gt;
+                    &lt;p&gt;Intenta ajustar tus criterios de búsqueda o filtro.&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #notLoggedIn&gt;
+            &lt;div class&#x3D;&quot;p-5 bg-secondary text-light rounded-lg shadow-xl text-center&quot;&gt;
+                &lt;h3 class&#x3D;&quot;text-3xl font-bold mb-4&quot;&gt;¡Bienvenido a la Biblioteca de Videojuegos!&lt;/h3&gt;
+                &lt;p class&#x3D;&quot;opacity-75 mb-6&quot;&gt;Inicia sesión o regístrate para gestionar tu propia biblioteca personal.&lt;/p&gt;
+                &lt;p class&#x3D;&quot;opacity-75 text-sm&quot;&gt;Puedes usar &lt;code&gt;admin&lt;/code&gt; / &lt;code&gt;Admin123!&lt;/code&gt; o &lt;code&gt;user1&lt;/code&gt; / &lt;code&gt;User123!&lt;/code&gt;.&lt;/p&gt;
+                &lt;a routerLink&#x3D;&quot;/login&quot; class&#x3D;&quot;btn btn-primary mt-3&quot;&gt;Iniciar Sesión&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/div&gt;
+&lt;/main&gt;
+
+&lt;!-- Modal de detalles del juego --&gt;
+&lt;app-game-detail-modal [game]&#x3D;&quot;selectedGameForModal&quot;&gt;&lt;/app-game-detail-modal&gt;
+
+&lt;!-- Modal de Confirmación --&gt;
+&lt;app-confirmation-modal
+    [title]&#x3D;&quot;confirmationModalTitle&quot;
+    [message]&#x3D;&quot;confirmationModalMessage&quot;
+    [confirmButtonText]&#x3D;&quot;confirmationModalConfirmText&quot;
+    (confirmed)&#x3D;&quot;onDeleteConfirmation($event)&quot;&gt;
+&lt;/app-confirmation-modal&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./my-library.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main class="container my-5">    <h2 class="text-center mb-5 display-5 fw-bold text-light" id="library-title">Mi Biblioteca Personal</h2>    <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>	<div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>    <section id="filter-options" class="search-filter row mb-4 gx-3 justify-content-center">        <div class="col-md-5 col-lg-4 mb-3">            <input type="text" id="search-input" class="form-control" placeholder="Buscar por título o descripción..." [(ngModel)]="searchTerm" (ngModelChange)="filterAndRenderGames()">        </div>        <div class="col-md-3 col-lg-2 mb-3">            <select id="status-filter" class="form-select" [(ngModel)]="selectedStatus" (ngModelChange)="filterAndRenderGames()">                <option value="">Todos los estados</option>                <option value="jugado">Jugado</option>                <option value="pendiente">Pendiente</option>            </select>        </div>        <div class="col-md-3 col-lg-2 mb-3">            <select id="favorite-filter" class="form-select" [(ngModel)]="selectedFavorite" (ngModelChange)="filterAndRenderGames()">                <option value="">Todos los favoritos</option>                <option value="favorito">Favorito</option>                <option value="no-favorito">No Favorito</option>            </select>        </div>    </section>    <div id="library-content">        <ng-container *ngIf="currentUser; else notLoggedIn">            <ng-container *ngIf="filteredGames.length > 0; else noGamesFound">                <div id="games-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">                    <div class="col" *ngFor="let game of filteredGames">                        <app-game-card                            [game]="game"                            [showLibraryControls]="true"                            (viewDetails)="openGameDetailModal($event)"                            (toggleFavorite)="handleToggleFavorite($event)"                            (togglePlayed)="handleTogglePlayed($event)"                            (updateHours)="handleUpdateHoursPlayed($event)"                            (deleteGame)="handleDeleteGameConfirmation($event)">                        </app-game-card>                    </div>                </div>            </ng-container>            <ng-template #noGamesFound>                <div class="p-5 text-light rounded-lg shadow-xl text-center">                    <h3 class="text-2xl font-bold mb-4">No se encontraron juegos con los filtros aplicados.</h3>                    <p>Intenta ajustar tus criterios de búsqueda o filtro.</p>                </div>            </ng-template>        </ng-container>        <ng-template #notLoggedIn>            <div class="p-5 bg-secondary text-light rounded-lg shadow-xl text-center">                <h3 class="text-3xl font-bold mb-4">¡Bienvenido a la Biblioteca de Videojuegos!</h3>                <p class="opacity-75 mb-6">Inicia sesión o regístrate para gestionar tu propia biblioteca personal.</p>                <p class="opacity-75 text-sm">Puedes usar <code>admin</code> / <code>Admin123!</code> o <code>user1</code> / <code>User123!</code>.</p>                <a routerLink="/login" class="btn btn-primary mt-3">Iniciar Sesión</a>            </div>        </ng-template>    </div></main><!-- Modal de detalles del juego --><app-game-detail-modal [game]="selectedGameForModal"></app-game-detail-modal><!-- Modal de Confirmación --><app-confirmation-modal    [title]="confirmationModalTitle"    [message]="confirmationModalMessage"    [confirmButtonText]="confirmationModalConfirmText"    (confirmed)="onDeleteConfirmation($event)"></app-confirmation-modal></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GameCardComponent', 'selector': 'app-game-card'},{'name': 'GameDetailModalComponent', 'selector': 'app-game-detail-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MyLibraryComponent', 'selector': 'app-my-library'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MyLibraryComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MyLibraryComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

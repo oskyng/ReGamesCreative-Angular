@@ -17,10 +17,7 @@ const routes: Routes = [
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'profile', component: UserProfileComponent, canActivate: [authGuard] },
 	{ path: 'recover-password', component: RecoverPasswordComponent },
-	{ path: 'categorias/accion', component: CategoryComponent, data: { category: 'Acción' } },
-	{ path: 'categorias/rpg', component: CategoryComponent, data: { category: 'RPG' } },
-	{ path: 'categorias/aventura', component: CategoryComponent, data: { category: 'Aventura' } },
-	{ path: 'categorias/estrategia', component: CategoryComponent, data: { category: 'Estrategia' } },
+	{ path: 'categorias/:categorySlug', component: CategoryComponent },
 	// Ruta comodín para 404 (redirecciona al inicio)
 	{ path: '**', redirectTo: '/inicio' }
 ];

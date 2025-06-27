@@ -1,0 +1,665 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>re-games-creative-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">re-games-creative-angular documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  GameCardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/game-card/game-card.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente para mostrar una tarjeta de juego individual.
+Utilizado en las páginas de categorías y en la biblioteca personal,
+muestra información del juego y proporciona botones de acción que emiten eventos al componente padre.
+Puede mostrar controles adicionales si se usa en la biblioteca personal.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;!-- Uso en página de categorías --&gt;
+&lt;app-game-card [game]=&quot;myGame&quot; (addGameToLibrary)=&quot;onAddGame($event)&quot;&gt;&lt;/app-game-card&gt;
+
+&lt;!-- Uso en mi biblioteca --&gt;
+&lt;app-game-card [game]=&quot;myLibraryGame&quot; [showLibraryControls]=&quot;true&quot; (deleteGame)=&quot;onDeleteGame($event)&quot;&gt;&lt;/app-game-card&gt;</code></pre></div>
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-game-card</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./game-card.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./game-card.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#game" >game</a>
+                            </li>
+                            <li>
+                                <a href="#showLibraryControls" >showLibraryControls</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addGameToLibrary" >addGameToLibrary</a>
+                            </li>
+                            <li>
+                                <a href="#deleteGame" >deleteGame</a>
+                            </li>
+                            <li>
+                                <a href="#toggleFavorite" >toggleFavorite</a>
+                            </li>
+                            <li>
+                                <a href="#togglePlayed" >togglePlayed</a>
+                            </li>
+                            <li>
+                                <a href="#updateHours" >updateHours</a>
+                            </li>
+                            <li>
+                                <a href="#viewDetails" >viewDetails</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="game"></a>
+                        <b>game</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLibraryControls"></a>
+                        <b>showLibraryControls</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="addGameToLibrary"></a>
+                        <b>addGameToLibrary</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteGame"></a>
+                        <b>deleteGame</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:34</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="toggleFavorite"></a>
+                        <b>toggleFavorite</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="togglePlayed"></a>
+                        <b>togglePlayed</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateHours"></a>
+                        <b>updateHours</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:33</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="viewDetails"></a>
+                        <b>viewDetails</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/game-card/game-card.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, Output } from &#x27;@angular/core&#x27;;
+import { Game } from &#x27;src/app/core/game/game.service&#x27;;
+
+/**
+ * @description 
+ * Componente para mostrar una tarjeta de juego individual.
+ * @summary 
+ * Utilizado en las páginas de categorías y en la biblioteca personal,
+ * muestra información del juego y proporciona botones de acción que emiten eventos al componente padre.
+ * Puede mostrar controles adicionales si se usa en la biblioteca personal.
+ * @usageNotes
+ * &#x60;&#x60;&#x60;html
+ * &lt;!-- Uso en página de categorías --&gt;
+ * &lt;app-game-card [game]&#x3D;&quot;myGame&quot; (addGameToLibrary)&#x3D;&quot;onAddGame($event)&quot;&gt;&lt;/app-game-card&gt;
+ *
+ * &lt;!-- Uso en mi biblioteca --&gt;
+ * &lt;app-game-card [game]&#x3D;&quot;myLibraryGame&quot; [showLibraryControls]&#x3D;&quot;true&quot; (deleteGame)&#x3D;&quot;onDeleteGame($event)&quot;&gt;&lt;/app-game-card&gt;
+ * &#x60;&#x60;&#x60;
+ */
+@Component({
+	selector: &#x27;app-game-card&#x27;,
+	templateUrl: &#x27;./game-card.component.html&#x27;,
+	styleUrls: [&#x27;./game-card.component.css&#x27;]
+})
+export class GameCardComponent {
+	@Input() game!: Game;
+	@Input() showLibraryControls: boolean &#x3D; false;
+
+	@Output() addGameToLibrary &#x3D; new EventEmitter&lt;Game&gt;();
+	@Output() viewDetails &#x3D; new EventEmitter&lt;Game&gt;();
+	@Output() toggleFavorite &#x3D; new EventEmitter&lt;number&gt;();
+	@Output() togglePlayed &#x3D; new EventEmitter&lt;number&gt;();
+	@Output() updateHours &#x3D; new EventEmitter&lt;number&gt;();
+	@Output() deleteGame &#x3D; new EventEmitter&lt;number&gt;();
+
+	constructor() { }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;card h-100 game-card shadow-sm border-0&quot;
+     [attr.data-game-id]&#x3D;&quot;game.id&quot;
+     [attr.data-game-title]&#x3D;&quot;game.title&quot;
+     [attr.data-game-description]&#x3D;&quot;game.description&quot;
+     [attr.data-game-platform]&#x3D;&quot;game.platform&quot;
+     [attr.data-game-genre]&#x3D;&quot;game.genre&quot;
+     [attr.data-game-hours]&#x3D;&quot;game.hoursPlayed&quot;
+     [attr.data-game-image]&#x3D;&quot;game.image&quot;
+     [attr.data-game-achievements]&#x3D;&quot;game.achievements ? (game.achievements | json) : &#x27;[]&#x27;&quot;&gt;
+    &lt;img [src]&#x3D;&quot;game.image || &#x27;https://placehold.co/400x250/374151/D1D5DB?text&#x3D;No+Image&#x27;&quot; class&#x3D;&quot;card-img-top&quot; [alt]&#x3D;&quot;&#x27;Portada &#x27; + game.title&quot;&gt;
+    &lt;div class&#x3D;&quot;card-body d-flex flex-column&quot;&gt;
+        &lt;h5 class&#x3D;&quot;card-title text-primary&quot;&gt;{{ game.title }}&lt;/h5&gt;
+        &lt;p class&#x3D;&quot;card-text small&quot;&gt;Plataforma: {{ game.platform }} | Género: {{ game.genre }}&lt;/p&gt;
+        &lt;p class&#x3D;&quot;card-text flex-grow-1&quot;&gt;{{ game.description.substring(0, 100) }}{{ game.description.length &gt; 100 ? &#x27;...&#x27; : &#x27;&#x27; }}&lt;/p&gt;
+        &lt;p class&#x3D;&quot;card-text text-secondary&quot;&gt;&lt;i class&#x3D;&quot;fas fa-clock me-2&quot;&gt;&lt;/i&gt;Horas de juego: {{ game.hoursPlayed }}h&lt;/p&gt;
+
+        &lt;div *ngIf&#x3D;&quot;showLibraryControls&quot; class&#x3D;&quot;d-flex justify-content-between align-items-center mt-2&quot;&gt;
+            &lt;span class&#x3D;&quot;badge&quot; [ngClass]&#x3D;&quot;game.played ? &#x27;bg-success&#x27; : &#x27;bg-warning&#x27;&quot;&gt;{{ game.played ? &#x27;Jugado&#x27; : &#x27;Pendiente&#x27; }}&lt;/span&gt;
+            &lt;button class&#x3D;&quot;btn btn-sm toggle-favorite-btn&quot;
+                    [ngClass]&#x3D;&quot;game.isFavorite ? &#x27;btn-warning&#x27; : &#x27;btn-outline-warning&#x27;&quot;
+                    (click)&#x3D;&quot;toggleFavorite.emit(game.id)&quot;&gt;
+                &lt;i class&#x3D;&quot;fas fa-star&quot;&gt;&lt;/i&gt; {{ game.isFavorite ? &#x27;Favorito&#x27; : &#x27;Añadir a Fav.&#x27; }}
+            &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;showLibraryControls&quot; class&#x3D;&quot;d-flex justify-content-between align-items-center mt-3&quot;&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-sm btn-info view-details-btn&quot; data-bs-toggle&#x3D;&quot;modal&quot; data-bs-target&#x3D;&quot;#gameDetailModal&quot; (click)&#x3D;&quot;viewDetails.emit(game)&quot;&gt;Ver Detalles&lt;/button&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-sm btn-secondary toggle-played-btn&quot; (click)&#x3D;&quot;togglePlayed.emit(game.id)&quot;&gt;{{ game.played ? &#x27;Marcar Pend.&#x27; : &#x27;Marcar Jugado&#x27; }}&lt;/button&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-sm btn-primary update-hours-btn&quot; (click)&#x3D;&quot;updateHours.emit(game.id)&quot;&gt;&lt;i class&#x3D;&quot;fas fa-edit&quot;&gt;&lt;/i&gt; Horas&lt;/button&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-sm btn-danger delete-game-btn&quot; (click)&#x3D;&quot;deleteGame.emit(game.id)&quot;&gt;&lt;i class&#x3D;&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;!showLibraryControls&quot; class&#x3D;&quot;d-flex justify-content-center align-items-center mt-3&quot;&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-sm btn-info view-details-btn me-2&quot; data-bs-toggle&#x3D;&quot;modal&quot; data-bs-target&#x3D;&quot;#gameDetailModal&quot; (click)&#x3D;&quot;viewDetails.emit(game)&quot;&gt;Ver Detalles&lt;/button&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-sm btn-success add-to-user-library-btn&quot; (click)&#x3D;&quot;addGameToLibrary.emit(game)&quot;&gt;
+                &lt;i class&#x3D;&quot;fas fa-plus-circle me-1&quot;&gt;&lt;/i&gt; Añadir a Mi Biblioteca
+            &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;add-to-library-message mt-2 text-center text-sm&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./game-card.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="card h-100 game-card shadow-sm border-0"     [attr.data-game-id]="game.id"     [attr.data-game-title]="game.title"     [attr.data-game-description]="game.description"     [attr.data-game-platform]="game.platform"     [attr.data-game-genre]="game.genre"     [attr.data-game-hours]="game.hoursPlayed"     [attr.data-game-image]="game.image"     [attr.data-game-achievements]="game.achievements ? (game.achievements | json) : \'[]\'">    <img [src]="game.image || \'https://placehold.co/400x250/374151/D1D5DB?text=No+Image\'" class="card-img-top" [alt]="\'Portada \' + game.title">    <div class="card-body d-flex flex-column">        <h5 class="card-title text-primary">{{ game.title }}</h5>        <p class="card-text small">Plataforma: {{ game.platform }} | Género: {{ game.genre }}</p>        <p class="card-text flex-grow-1">{{ game.description.substring(0, 100) }}{{ game.description.length > 100 ? \'...\' : \'\' }}</p>        <p class="card-text text-secondary"><i class="fas fa-clock me-2"></i>Horas de juego: {{ game.hoursPlayed }}h</p>        <div *ngIf="showLibraryControls" class="d-flex justify-content-between align-items-center mt-2">            <span class="badge" [ngClass]="game.played ? \'bg-success\' : \'bg-warning\'">{{ game.played ? \'Jugado\' : \'Pendiente\' }}</span>            <button class="btn btn-sm toggle-favorite-btn"                    [ngClass]="game.isFavorite ? \'btn-warning\' : \'btn-outline-warning\'"                    (click)="toggleFavorite.emit(game.id)">                <i class="fas fa-star"></i> {{ game.isFavorite ? \'Favorito\' : \'Añadir a Fav.\' }}            </button>        </div>        <div *ngIf="showLibraryControls" class="d-flex justify-content-between align-items-center mt-3">            <button type="button" class="btn btn-sm btn-info view-details-btn" data-bs-toggle="modal" data-bs-target="#gameDetailModal" (click)="viewDetails.emit(game)">Ver Detalles</button>            <button type="button" class="btn btn-sm btn-secondary toggle-played-btn" (click)="togglePlayed.emit(game.id)">{{ game.played ? \'Marcar Pend.\' : \'Marcar Jugado\' }}</button>            <button type="button" class="btn btn-sm btn-primary update-hours-btn" (click)="updateHours.emit(game.id)"><i class="fas fa-edit"></i> Horas</button>            <button type="button" class="btn btn-sm btn-danger delete-game-btn" (click)="deleteGame.emit(game.id)"><i class="fas fa-trash-alt"></i></button>        </div>        <div *ngIf="!showLibraryControls" class="d-flex justify-content-center align-items-center mt-3">            <button type="button" class="btn btn-sm btn-info view-details-btn me-2" data-bs-toggle="modal" data-bs-target="#gameDetailModal" (click)="viewDetails.emit(game)">Ver Detalles</button>            <button type="button" class="btn btn-sm btn-success add-to-user-library-btn" (click)="addGameToLibrary.emit(game)">                <i class="fas fa-plus-circle me-1"></i> Añadir a Mi Biblioteca            </button>        </div>        <div class="add-to-library-message mt-2 text-center text-sm"></div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GameCardComponent', 'selector': 'app-game-card'},{'name': 'GameDetailModalComponent', 'selector': 'app-game-detail-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MyLibraryComponent', 'selector': 'app-my-library'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'GameCardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'GameCardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1752 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>re-games-creative-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">re-games-creative-angular documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CategoryComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/category/category.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente para mostrar una lista de videojuegos filtrados por categoría.
+Este componente recupera juegos, géneros y plataformas de la API de RAWG,
+permite la búsqueda y el filtrado, y ofrece funcionalidad para añadir juegos a la
+biblioteca del usuario y ver detalles en un modal.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;app-category&gt;&lt;/app-category&gt;</code></pre></div>
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-category</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./category.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./category.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allGames" >allGames</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#authSubscription" >authSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#availableGenres" >availableGenres</a>
+                            </li>
+                            <li>
+                                <a href="#availablePlatforms" >availablePlatforms</a>
+                            </li>
+                            <li>
+                                <a href="#categoryName" >categoryName</a>
+                            </li>
+                            <li>
+                                <a href="#categorySlug" >categorySlug</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#filteredGames" >filteredGames</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#gameDetailModal" >gameDetailModal</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#routeSubscription" >routeSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <a href="#selectedGameForModal" >selectedGameForModal</a>
+                            </li>
+                            <li>
+                                <a href="#selectedGenre" >selectedGenre</a>
+                            </li>
+                            <li>
+                                <a href="#selectedPlatform" >selectedPlatform</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#capitalizeFirstLetter" >capitalizeFirstLetter</a>
+                            </li>
+                            <li>
+                                <a href="#extractFilterOptions" >extractFilterOptions</a>
+                            </li>
+                            <li>
+                                <a href="#filterGames" >filterGames</a>
+                            </li>
+                            <li>
+                                <a href="#handleAddToLibrary" >handleAddToLibrary</a>
+                            </li>
+                            <li>
+                                <a href="#loadGamesAndFiltersFromRawg" >loadGamesAndFiltersFromRawg</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openGameDetailModal" >openGameDetailModal</a>
+                            </li>
+                            <li>
+                                <a href="#resetFilters" >resetFilters</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(route: ActivatedRoute, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, gameService: <a href="../injectables/GameService.html" target="_self">GameService</a>, rawgApiService: <a href="../injectables/ApiService.html" target="_self">ApiService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/features/category/category.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>gameService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GameService.html" target="_self" >GameService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>rawgApiService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApiService.html" target="_self" >ApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="capitalizeFirstLetter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>capitalizeFirstLetter</b></span>
+                        <a href="#capitalizeFirstLetter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>capitalizeFirstLetter(str: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>str</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractFilterOptions"></a>
+                    <span class="name">
+                        <span ><b>extractFilterOptions</b></span>
+                        <a href="#extractFilterOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractFilterOptions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterGames"></a>
+                    <span class="name">
+                        <span ><b>filterGames</b></span>
+                        <a href="#filterGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterGames()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:145</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleAddToLibrary"></a>
+                    <span class="name">
+                        <span ><b>handleAddToLibrary</b></span>
+                        <a href="#handleAddToLibrary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleAddToLibrary(game: <a href="../interfaces/Game.html" target="_self">Game</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>game</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Game.html" target="_self" >Game</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadGamesAndFiltersFromRawg"></a>
+                    <span class="name">
+                        <span ><b>loadGamesAndFiltersFromRawg</b></span>
+                        <a href="#loadGamesAndFiltersFromRawg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadGamesAndFiltersFromRawg(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>category</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="212"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openGameDetailModal"></a>
+                    <span class="name">
+                        <span ><b>openGameDetailModal</b></span>
+                        <a href="#openGameDetailModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openGameDetailModal(game: <a href="../interfaces/Game.html" target="_self">Game</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>game</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Game.html" target="_self" >Game</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetFilters"></a>
+                    <span class="name">
+                        <span ><b>resetFilters</b></span>
+                        <a href="#resetFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetFilters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/features/category/category.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allGames"></a>
+                    <span class="name">
+                        <span ><b>allGames</b></span>
+                        <a href="#allGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/features/category/category.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authSubscription</b></span>
+                        <a href="#authSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/features/category/category.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="availableGenres"></a>
+                    <span class="name">
+                        <span ><b>availableGenres</b></span>
+                        <a href="#availableGenres"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/features/category/category.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="availablePlatforms"></a>
+                    <span class="name">
+                        <span ><b>availablePlatforms</b></span>
+                        <a href="#availablePlatforms"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/features/category/category.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoryName"></a>
+                    <span class="name">
+                        <span ><b>categoryName</b></span>
+                        <a href="#categoryName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/features/category/category.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categorySlug"></a>
+                    <span class="name">
+                        <span ><b>categorySlug</b></span>
+                        <a href="#categorySlug"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/features/category/category.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/features/category/category.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/features/category/category.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredGames"></a>
+                    <span class="name">
+                        <span ><b>filteredGames</b></span>
+                        <a href="#filteredGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/features/category/category.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gameDetailModal"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>gameDetailModal</b></span>
+                        <a href="#gameDetailModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/GameDetailModalComponent.html" target="_self" >GameDetailModalComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(GameDetailModalComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/features/category/category.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="message"></a>
+                    <span class="name">
+                        <span ><b>message</b></span>
+                        <a href="#message"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/features/category/category.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routeSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>routeSubscription</b></span>
+                        <a href="#routeSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/features/category/category.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/features/category/category.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedGameForModal"></a>
+                    <span class="name">
+                        <span ><b>selectedGameForModal</b></span>
+                        <a href="#selectedGameForModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Game.html" target="_self" >Game | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/features/category/category.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedGenre"></a>
+                    <span class="name">
+                        <span ><b>selectedGenre</b></span>
+                        <a href="#selectedGenre"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/features/category/category.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPlatform"></a>
+                    <span class="name">
+                        <span ><b>selectedPlatform</b></span>
+                        <a href="#selectedPlatform"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/features/category/category.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { catchError, forkJoin, of, Subscription, switchMap } from &#x27;rxjs&#x27;;
+import { ApiService } from &#x27;src/app/core/api/api.service&#x27;;
+import { User, AuthService } from &#x27;src/app/core/auth/auth.service&#x27;;
+import { Game, GameService } from &#x27;src/app/core/game/game.service&#x27;;
+import { GameDetailModalComponent } from &#x27;src/app/shared/game-detail-modal/game-detail-modal.component&#x27;;
+
+declare let bootstrap: any;
+
+/**
+ * @description 
+ * Componente para mostrar una lista de videojuegos filtrados por categoría.
+ * @summary 
+ * Este componente recupera juegos, géneros y plataformas de la API de RAWG,
+ * permite la búsqueda y el filtrado, y ofrece funcionalidad para añadir juegos a la
+ * biblioteca del usuario y ver detalles en un modal.
+ * @usageNotes
+ * &#x60;&#x60;&#x60;html
+ * &lt;app-category&gt;&lt;/app-category&gt;
+ * &#x60;&#x60;&#x60;
+ */
+@Component({
+	selector: &#x27;app-category&#x27;,
+	templateUrl: &#x27;./category.component.html&#x27;,
+	styleUrls: [&#x27;./category.component.css&#x27;]
+})
+export class CategoryComponent implements OnInit, OnDestroy {
+	message &#x3D; &#x27;&#x27;;
+	error &#x3D; &#x27;&#x27;;
+	categoryName: string &#x3D; &#x27;&#x27;;
+	categorySlug: string &#x3D; &#x27;&#x27;;
+	allGames: Game[] &#x3D; [];
+	filteredGames: Game[] &#x3D; [];
+
+	searchTerm: string &#x3D; &#x27;&#x27;;
+	selectedPlatform: string &#x3D; &#x27;&#x27;;
+	selectedGenre: string &#x3D; &#x27;&#x27;;
+
+	availablePlatforms: string[] &#x3D; [];
+	availableGenres: string[] &#x3D; [];
+
+	selectedGameForModal: Game | null &#x3D; null;
+
+	private routeSubscription!: Subscription;
+	private authSubscription!: Subscription;
+	currentUser: User | null &#x3D; null;
+
+	@ViewChild(GameDetailModalComponent) gameDetailModal!: GameDetailModalComponent;
+
+	constructor(
+		private readonly route: ActivatedRoute,
+		private readonly authService: AuthService,
+		private readonly gameService: GameService,
+		private readonly rawgApiService: ApiService
+	) { }
+
+	ngOnInit(): void {
+		this.authService.init();
+		this.authSubscription &#x3D; this.authService.currentUser.subscribe(user &#x3D;&gt; {
+			this.currentUser &#x3D; user;
+		});
+
+		this.routeSubscription &#x3D; this.route.paramMap.pipe(
+			switchMap(params &#x3D;&gt; {
+				this.categorySlug &#x3D; params.get(&#x27;categorySlug&#x27;) ?? &#x27;&#x27;;
+				this.categoryName &#x3D; this.capitalizeFirstLetter(this.categorySlug.replace(/-/g, &#x27; &#x27;));
+				this.resetFilters();
+				return forkJoin({
+					games: this.rawgApiService.getGames(&#x27;&#x27;, this.categorySlug),
+					genres: this.rawgApiService.getGenres(),
+					platforms: this.rawgApiService.getPlatforms()
+				});
+			})
+		).subscribe({
+			next: ({ games, genres, platforms }) &#x3D;&gt; {
+				this.allGames &#x3D; games;
+				this.availableGenres &#x3D; genres;
+				this.availablePlatforms &#x3D; platforms;
+				this.filterGames();
+			},
+			error: (err) &#x3D;&gt; {
+				console.error(&#x27;Error al cargar datos de RAWG API para la categoría:&#x27;, this.categorySlug, err);
+				this.allGames &#x3D; [];
+				this.availableGenres &#x3D; [];
+				this.availablePlatforms &#x3D; [];
+				alert(&#x27;Error al cargar videojuegos para esta categoría. Por favor, revisa tu clave API o inténtalo más tarde.&#x27;);
+			}
+		});
+	}
+
+	private capitalizeFirstLetter(str: string): string {
+		if (!str) return &#x27;&#x27;;
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	}
+
+	loadGamesAndFiltersFromRawg(category: string): void {
+		const categorySlug &#x3D; category.toLowerCase().replace(/\s/g, &#x27;-&#x27;);
+
+		// Usar forkJoin para hacer múltiples llamadas API en paralelo
+		forkJoin({
+			games: this.rawgApiService.getGames(&#x27;&#x27;, categorySlug),
+			genres: this.rawgApiService.getGenres(),
+			platforms: this.rawgApiService.getPlatforms()
+		}).subscribe({
+			next: ({ games, genres, platforms }) &#x3D;&gt; {
+				this.allGames &#x3D; games;
+				this.availableGenres &#x3D; genres;
+				this.availablePlatforms &#x3D; platforms;
+				this.filterGames();
+			},
+			error: (err) &#x3D;&gt; {
+				console.error(&#x27;Error al cargar datos de RAWG API:&#x27;, err);
+				this.allGames &#x3D; [];
+				this.availableGenres &#x3D; [];
+				this.availablePlatforms &#x3D; [];
+				alert(&#x27;Error al cargar videojuegos. Por favor, revisa tu clave API o inténtalo más tarde.&#x27;);
+			}
+		});
+	}
+
+	// Extrae las opciones únicas de plataforma y género de los juegos cargados
+	extractFilterOptions(): void {
+		const platforms &#x3D; new Set&lt;string&gt;();
+		const genres &#x3D; new Set&lt;string&gt;();
+
+		this.allGames.forEach(game &#x3D;&gt; {
+			game.platform.split(&#x27;,&#x27;).map(p &#x3D;&gt; p.trim()).forEach(p &#x3D;&gt; platforms.add(p));
+			game.genre.split(&#x27;,&#x27;).map(g &#x3D;&gt; g.trim()).forEach(g &#x3D;&gt; genres.add(g));
+		});
+
+		this.availablePlatforms &#x3D; Array.from(platforms).sort((a, b) &#x3D;&gt; a.localeCompare(b));
+		this.availableGenres &#x3D; Array.from(genres).sort((a, b) &#x3D;&gt; a.localeCompare(b));
+	}
+
+	// Restablece los filtros de búsqueda
+	resetFilters(): void {
+		this.searchTerm &#x3D; &#x27;&#x27;;
+		this.selectedPlatform &#x3D; &#x27;&#x27;;
+		this.selectedGenre &#x3D; &#x27;&#x27;;
+		this.filterGames();
+	}
+
+	// Filtra los juegos basándose en los criterios de búsqueda y selección
+	filterGames(): void {
+		const searchTermLower &#x3D; this.searchTerm.toLowerCase();
+		const selectedPlatformLower &#x3D; this.selectedPlatform.toLowerCase();
+		const selectedGenreLower &#x3D; this.selectedGenre.toLowerCase();
+
+		this.filteredGames &#x3D; this.allGames.filter(game &#x3D;&gt; {
+			const matchesSearch &#x3D; game.title.toLowerCase().includes(searchTermLower) ||
+				game.description.toLowerCase().includes(searchTermLower);
+
+			const matchesPlatform &#x3D; selectedPlatformLower &#x3D;&#x3D;&#x3D; &#x27;&#x27; || game.platform.toLowerCase().includes(selectedPlatformLower);
+			const matchesGenre &#x3D; selectedGenreLower &#x3D;&#x3D;&#x3D; &#x27;&#x27; || game.genre.toLowerCase().includes(selectedGenreLower);
+
+			return matchesSearch &amp;&amp; matchesPlatform &amp;&amp; matchesGenre;
+		});
+	}
+
+	// Maneja el evento cuando se hace clic en &quot;Añadir a Mi Biblioteca&quot;
+	handleAddToLibrary(game: Game): void {
+		const currentUser &#x3D; this.authService.getCurrentUser;
+		if (!currentUser) {
+			alert(&#x27;Debes iniciar sesión para añadir juegos a tu biblioteca.&#x27;);
+			return;
+		}
+
+		this.rawgApiService.getGameAchievements(game.id).subscribe({
+			next: (achievements) &#x3D;&gt; {
+				const gameWithAchievements: Game &#x3D; { ...game, achievements: achievements };
+				const result &#x3D; this.gameService.addGame(currentUser.username, gameWithAchievements);
+				alert(result.message);
+			},
+			error: (err) &#x3D;&gt; {
+				console.warn(&#x27;No se pudieron cargar los logros para el juego:&#x27;, game.title, err);
+				const result &#x3D; this.gameService.addGame(currentUser.username, game);
+				alert(result.message + &#x27; (Logros no cargados debido a un error de API)&#x27;);
+			}
+		});
+	}
+
+	// Abre el modal de detalles del juego y pasa el juego seleccionado
+	openGameDetailModal(game: Game): void {
+		// Usar forkJoin para obtener los detalles completos del juego Y sus logros en paralelo
+		forkJoin({
+			details: this.rawgApiService.getGameDetails(game.id),
+			achievements: this.rawgApiService.getGameAchievements(game.id).pipe(
+				catchError(err &#x3D;&gt; {
+					console.error(&#x27;Error al obtener logros para el juego&#x27;, game.id, err);
+					return of([]);
+				})
+			)
+		}).subscribe({
+			next: ({ details, achievements }) &#x3D;&gt; {
+				this.selectedGameForModal &#x3D; { ...details, achievements: achievements };
+				if (this.gameDetailModal) {
+					this.gameDetailModal.show();
+				}
+			},
+			error: (err) &#x3D;&gt; {
+				console.error(&#x27;Error al cargar detalles o logros del juego de RAWG API:&#x27;, err);
+				this.selectedGameForModal &#x3D; game;
+				if (this.gameDetailModal) {
+					this.gameDetailModal.show();
+				}
+				alert(&#x27;Error al cargar los detalles completos del videojuego o sus logros.&#x27;);
+			}
+		});
+	}
+
+	ngOnDestroy(): void {
+		if (this.routeSubscription) {
+			this.routeSubscription.unsubscribe();
+		}
+		if (this.authSubscription) {
+			this.authSubscription.unsubscribe();
+		}
+	}
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main class&#x3D;&quot;container my-5&quot;&gt;
+    &lt;div *ngIf&#x3D;&quot;message&quot; class&#x3D;&quot;alert alert-success mt-3 text-center&quot;&gt;{{ message }}&lt;/div&gt;
+	&lt;div *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert-danger mt-3 text-center&quot;&gt;{{ error }}&lt;/div&gt;
+    &lt;h2 class&#x3D;&quot;text-center mb-5 text-primary&quot;&gt;Juegos de {{ categoryName }}&lt;/h2&gt;
+
+    &lt;section id&#x3D;&quot;search-filter&quot; class&#x3D;&quot;row mb-4 gx-3 justify-content-center&quot;&gt;
+        &lt;div class&#x3D;&quot;col-md-5 col-lg-4 mb-3&quot;&gt;
+            &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;search-input&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Buscar videojuegos...&quot; [(ngModel)]&#x3D;&quot;searchTerm&quot; (ngModelChange)&#x3D;&quot;filterGames()&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3 col-lg-2 mb-3&quot;&gt;
+            &lt;select id&#x3D;&quot;platform-filter&quot; class&#x3D;&quot;form-select&quot; [(ngModel)]&#x3D;&quot;selectedPlatform&quot; (ngModelChange)&#x3D;&quot;filterGames()&quot;&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Todas las plataformas&lt;/option&gt;
+                &lt;option *ngFor&#x3D;&quot;let platform of availablePlatforms&quot; [value]&#x3D;&quot;platform&quot;&gt;{{ platform }}&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3 col-lg-2 mb-3&quot;&gt;
+            &lt;select id&#x3D;&quot;genre-filter&quot; class&#x3D;&quot;form-select&quot; [(ngModel)]&#x3D;&quot;selectedGenre&quot; (ngModelChange)&#x3D;&quot;filterGames()&quot;&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Todos los géneros&lt;/option&gt;
+                &lt;option *ngFor&#x3D;&quot;let genre of availableGenres&quot; [value]&#x3D;&quot;genre&quot;&gt;{{ genre }}&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id&#x3D;&quot;games&quot; class&#x3D;&quot;row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;filteredGames.length &gt; 0; else noGamesFound&quot;&gt;
+            &lt;div class&#x3D;&quot;col&quot; *ngFor&#x3D;&quot;let game of filteredGames&quot;&gt;
+                &lt;app-game-card [game]&#x3D;&quot;game&quot; (addGameToLibrary)&#x3D;&quot;handleAddToLibrary($event)&quot; (viewDetails)&#x3D;&quot;openGameDetailModal($event)&quot;&gt;&lt;/app-game-card&gt;
+            &lt;/div&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #noGamesFound&gt;
+            &lt;div class&#x3D;&quot;col-12 text-center text-light&quot;&gt;
+                &lt;p&gt;No se encontraron juegos para esta categoría con los filtros aplicados.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;app-game-detail-modal [game]&#x3D;&quot;selectedGameForModal&quot;&gt;&lt;/app-game-detail-modal&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./category.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main class="container my-5">    <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>	<div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>    <h2 class="text-center mb-5 text-primary">Juegos de {{ categoryName }}</h2>    <section id="search-filter" class="row mb-4 gx-3 justify-content-center">        <div class="col-md-5 col-lg-4 mb-3">            <input type="text" id="search-input" class="form-control" placeholder="Buscar videojuegos..." [(ngModel)]="searchTerm" (ngModelChange)="filterGames()">        </div>        <div class="col-md-3 col-lg-2 mb-3">            <select id="platform-filter" class="form-select" [(ngModel)]="selectedPlatform" (ngModelChange)="filterGames()">                <option value="">Todas las plataformas</option>                <option *ngFor="let platform of availablePlatforms" [value]="platform">{{ platform }}</option>            </select>        </div>        <div class="col-md-3 col-lg-2 mb-3">            <select id="genre-filter" class="form-select" [(ngModel)]="selectedGenre" (ngModelChange)="filterGames()">                <option value="">Todos los géneros</option>                <option *ngFor="let genre of availableGenres" [value]="genre">{{ genre }}</option>            </select>        </div>    </section>    <section id="games" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">        <ng-container *ngIf="filteredGames.length > 0; else noGamesFound">            <div class="col" *ngFor="let game of filteredGames">                <app-game-card [game]="game" (addGameToLibrary)="handleAddToLibrary($event)" (viewDetails)="openGameDetailModal($event)"></app-game-card>            </div>        </ng-container>        <ng-template #noGamesFound>            <div class="col-12 text-center text-light">                <p>No se encontraron juegos para esta categoría con los filtros aplicados.</p>            </div>        </ng-template>    </section></main><app-game-detail-modal [game]="selectedGameForModal"></app-game-detail-modal></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GameCardComponent', 'selector': 'app-game-card'},{'name': 'GameDetailModalComponent', 'selector': 'app-game-detail-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MyLibraryComponent', 'selector': 'app-my-library'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CategoryComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CategoryComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

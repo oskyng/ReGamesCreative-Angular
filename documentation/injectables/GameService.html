@@ -1,0 +1,834 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>re-games-creative-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">re-games-creative-angular documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >GameService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/game/game.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Servicio que gestiona las operaciones de la biblioteca de juegos de los usuarios,
+persistiendo los datos en el almacenamiento local (localStorage).
+de un usuario específico, manteniendo la integridad de los datos de la biblioteca.
+Inyecta este servicio en tus componentes o servicios que necesiten interactuar con la biblioteca de juegos:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">constructor(private gameService: GameService) { }
+// Para obtener juegos:
+const userGames = this.gameService.getUserGames(&#39;nombreUsuario&#39;);
+// Para añadir un juego:
+this.gameService.addGame(&#39;nombreUsuario&#39;, newGame);</code></pre></div>
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_saveUserGames" >_saveUserGames</a>
+                            </li>
+                            <li>
+                                <a href="#addGame" >addGame</a>
+                            </li>
+                            <li>
+                                <a href="#deleteGame" >deleteGame</a>
+                            </li>
+                            <li>
+                                <a href="#getUserGames" >getUserGames</a>
+                            </li>
+                            <li>
+                                <a href="#updateGame" >updateGame</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/core/game/game.service.ts:79</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_saveUserGames"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_saveUserGames</b></span>
+                        <a href="#_saveUserGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>_saveUserGames(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, games: <a href="../interfaces/Game.html" target="_self">Game[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/core/game/game.service.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>username</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>games</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Game.html" target="_self" >Game[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addGame"></a>
+                    <span class="name">
+                        <span ><b>addGame</b></span>
+                        <a href="#addGame"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addGame(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, gameData: <a href="../interfaces/Game.html" target="_self">Partial&lt;Game&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/core/game/game.service.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>username</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>gameData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Game.html" target="_self" >Partial&lt;Game&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteGame"></a>
+                    <span class="name">
+                        <span ><b>deleteGame</b></span>
+                        <a href="#deleteGame"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteGame(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, gameId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/app/core/game/game.service.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>username</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>gameId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserGames"></a>
+                    <span class="name">
+                        <span ><b>getUserGames</b></span>
+                        <a href="#getUserGames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserGames(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/core/game/game.service.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>username</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Game.html" target="_self" >Game[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateGame"></a>
+                    <span class="name">
+                        <span ><b>updateGame</b></span>
+                        <a href="#updateGame"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateGame(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updatedGame: <a href="../interfaces/Game.html" target="_self">Game</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/core/game/game.service.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>username</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>updatedGame</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Game.html" target="_self" >Game</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+const USER_GAMES_KEY &#x3D; &#x27;my_game_library_userGames&#x27;;
+/**
+ * @description 
+ * Define la estructura de datos para un videojuego y el servicio para gestionar la biblioteca de juegos del usuario.
+ * @summary 
+ * Proporciona interfaces para &#x60;Achievement&#x60; y &#x60;Game&#x60;, y el &#x60;GameService&#x60; para operaciones CRUD
+ * (añadir, obtener, actualizar, eliminar) sobre los juegos en la biblioteca local del usuario.
+ */
+
+/**
+ * @interface GameAchievement
+ * @description 
+ * Representa un logro individual de un videojuego.
+ * @property {number} id El ID del logro.
+ * @property {string} name El nombre del logro.
+ * @property {string} description La descripción del logro.
+ * @property {string} image La imagen del logro.
+ * @property {string} percent El procentaje del logro
+ * @property {boolean} completed Indica si el logro ha sido completado por el usuario.
+ */
+export interface GameAchievement {
+	id: number;
+	name: string;
+	description: string;
+	image: string;
+	percent: string;
+	completed: boolean;
+}
+
+/**
+ * @interface Game
+ * @description 
+ * Representa un videojuego en la aplicación, incluyendo detalles y logros.
+ * @property {number} id El identificador único del juego (ID de RAWG).
+ * @property {string} title El título del videojuego.
+ * @property {string} image La URL de la imagen de portada del juego.
+ * @property {string} description La descripción detallada del juego.
+ * @property {string} platform Las plataformas en las que está disponible el juego.
+ * @property {string} genre Los géneros a los que pertenece el juego.
+ * @property {number} hoursPlayed El número de horas que el usuario ha jugado a este juego.
+ * @property {boolean} played Indica si el usuario ha marcado el juego como &quot;jugado&quot;.
+ * @property {boolean} isFavorite Indica si el usuario ha marcado el juego como favorito.
+ * @property {GameAchievement[]} [achievements] Un array opcional de logros asociados al juego.
+ */
+export interface Game {
+	id: number;
+	title: string;
+	description: string;
+	platform: string;
+	genre: string;
+	hoursPlayed: number;
+	image: string;
+	isFavorite: boolean;
+	played: boolean;
+	achievements: GameAchievement[];
+}
+
+/**
+ * @class GameService
+ * @description
+ * Servicio que gestiona las operaciones de la biblioteca de juegos de los usuarios,
+ * persistiendo los datos en el almacenamiento local (localStorage).
+ * @summary Ofrece métodos para añadir, obtener, actualizar y eliminar juegos de la biblioteca
+ * de un usuario específico, manteniendo la integridad de los datos de la biblioteca.
+ * @usageNotes
+ * Inyecta este servicio en tus componentes o servicios que necesiten interactuar con la biblioteca de juegos:
+ * &#x60;&#x60;&#x60;typescript
+ * constructor(private gameService: GameService) { }
+ * // Para obtener juegos:
+ * const userGames &#x3D; this.gameService.getUserGames(&#x27;nombreUsuario&#x27;);
+ * // Para añadir un juego:
+ * this.gameService.addGame(&#x27;nombreUsuario&#x27;, newGame);
+ * &#x60;&#x60;&#x60;
+ */
+@Injectable({
+	providedIn: &#x27;root&#x27;
+})
+export class GameService {
+
+	constructor() { }
+
+	// Obtiene todos los juegos para un usuario específico
+	getUserGames(username: string): Game[] {
+		const allUserGames: { [key: string]: Game[] } &#x3D; JSON.parse(localStorage.getItem(USER_GAMES_KEY) ?? &#x27;{}&#x27;);
+		return allUserGames[username] ?? [];
+	}
+
+	// Guardar todos los juegos para un usuario específico
+	private _saveUserGames(username: string, games: Game[]): void {
+		const allUserGames: { [key: string]: Game[] } &#x3D; JSON.parse(localStorage.getItem(USER_GAMES_KEY) ?? &#x27;{}&#x27;);
+		allUserGames[username] &#x3D; games;
+		localStorage.setItem(USER_GAMES_KEY, JSON.stringify(allUserGames));
+	}
+	// Añadir un nuevo juego a la biblioteca de un usuario
+	addGame(username: string, gameData: Partial&lt;Game&gt;): { success: boolean, message: string, game?: Game } {
+		const userGames &#x3D; this.getUserGames(username);
+		const newGameId &#x3D; gameData.id ?? Date.now();
+
+		// Verifica si el juego ya existe en la biblioteca del usuario (por título y plataforma)
+		const alreadyExists &#x3D; userGames.some(game &#x3D;&gt;
+			game.title &#x3D;&#x3D;&#x3D; gameData.title &amp;&amp; game.platform &#x3D;&#x3D;&#x3D; gameData.platform
+		);
+
+		if (alreadyExists) {
+			return { success: false, message: &#x27;El juego ya está en tu biblioteca.&#x27; };
+		}
+
+		let initialAchievements: GameAchievement[] &#x3D; [];
+		if (gameData.achievements &amp;&amp; gameData.achievements.length &gt; 0) {
+			initialAchievements &#x3D; gameData.achievements.map(ach &#x3D;&gt; ({ ...ach, completed: false }));
+		} else {
+			initialAchievements &#x3D; [
+				{ id: 101, name: &quot;Completar Tutorial&quot;, description: &quot;Completa el tutorial del juego.&quot;, image: &quot;&quot;, percent: &quot;0%&quot;, completed: false },
+				{ id: 102, name: &quot;Derrotar Primer Jefe&quot;, description: &quot;Derrota al primer jefe del juego.&quot;, image: &quot;&quot;, percent: &quot;0%&quot;, completed: false }
+			];
+		}
+
+		const newGame: Game &#x3D; {
+			id: newGameId,
+			title: gameData.title ?? &#x27;Juego sin título&#x27;,
+			description: gameData.description ?? &#x27;&#x27;,
+			platform: gameData.platform ?? &#x27;Desconocida&#x27;,
+			genre: gameData.genre ?? &#x27;Varios&#x27;,
+			hoursPlayed: gameData.hoursPlayed ?? 0,
+			image: gameData.image ?? &#x27;https://placehold.co/400x250/374151/D1D5DB?text&#x3D;No+Image&#x27;,
+			isFavorite: false,
+			played: false,
+			achievements: initialAchievements
+		};
+
+		userGames.push(newGame);
+		this._saveUserGames(username, userGames);
+		return { success: true, message: &#x60;&quot;${newGame.title}&quot; añadido correctamente.&#x60;, game: newGame };
+	}
+
+	// Actualiza un juego existente en la biblioteca de un usuario
+	updateGame(username: string, updatedGame: Game): void {
+		let userGames &#x3D; this.getUserGames(username);
+		userGames &#x3D; userGames.map(game &#x3D;&gt;
+			game.id &#x3D;&#x3D;&#x3D; updatedGame.id ? { ...game, ...updatedGame } : game
+		);
+		this._saveUserGames(username, userGames);
+	}
+
+	// Elimina un juego de la biblioteca de un usuario
+	deleteGame(username: string, gameId: number): void {
+		let userGames &#x3D; this.getUserGames(username);
+		userGames &#x3D; userGames.filter(game &#x3D;&gt; game.id !&#x3D;&#x3D; gameId);
+		this._saveUserGames(username, userGames);
+	}
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GameService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
