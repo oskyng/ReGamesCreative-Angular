@@ -1,84 +1,104 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MyLibraryComponent } from './my-library.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Game } from 'src/app/core/game/game.service';
-import { Router } from '@angular/router';
+import { ApiService } from 'src/app/core/api/api.service';
+import { AuthService, User } from 'src/app/core/auth/auth.service';
+import { GameService, Game } from 'src/app/core/game/game.service';
+import { Observable, of, throwError } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-// Mock del GameCardComponent
-@Component({
-  selector: 'app-game-card',
-  template: `
-    <div class="mock-game-card" [attr.data-game-id]="game.id">
-      <h4>{{game.title}}</h4>
-      <span class="badge" [ngClass]="game.played ? 'bg-success' : 'bg-warning'">{{ game.played ? 'Jugado' : 'Pendiente' }}</span>
-      <button class="toggle-favorite-btn" (click)="toggleFavorite.emit(game.id)"></button>
-      <button class="toggle-played-btn" (click)="togglePlayed.emit(game.id)"></button>
-      <button class="update-hours-btn" (click)="updateHours.emit(game.id)"></button>
-      <button class="delete-game-btn" (click)="deleteGame.emit(game.id)"></button>
-      <button class="view-details-btn" (click)="viewDetails.emit(game)"></button>
-    </div>
-  `
-})
-class MockGameCardComponent {
-  @Input() game!: Game;
-  @Input() showLibraryControls: boolean = false;
-  @Output() addGameToLibrary = new EventEmitter<Game>();
-  @Output() viewDetails = new EventEmitter<Game>();
-  @Output() toggleFavorite = new EventEmitter<number>();
-  @Output() togglePlayed = new EventEmitter<number>();
-  @Output() updateHours = new EventEmitter<number>();
-  @Output() deleteGame = new EventEmitter<number>();
-}
-
-// Mock del GameDetailModalComponent
-@Component({
-  selector: 'app-game-detail-modal',
-  template: '<div class="mock-game-detail-modal"></div>'
-})
-class MockGameDetailModalComponent {
-  @Input() game: Game | null = null;
-  show = jasmine.createSpy('show');
-}
-
-// Mock del ConfirmationModalComponent
-@Component({
-  selector: 'app-confirmation-modal',
-  template: '<div class="mock-confirmation-modal"></div>'
-})
-class MockConfirmationModalComponent {
-  @Input() title: string = '';
-  @Input() message: string = '';
-  @Input() confirmButtonText: string = '';
-  @Output() confirmed = new EventEmitter<boolean>();
-  show = jasmine.createSpy('show'); // Espía el método show
-}
 
 describe('MyLibraryComponent', () => {
   let component: MyLibraryComponent;
   let fixture: ComponentFixture<MyLibraryComponent>;
 
+  // Mocks para los servicios
+  const mockApiService = {
+    getGameDetails: jasmine.createSpy('getGameDetails').and.returnValue(of({} as Game)),
+    getGameAchievements: jasmine.createSpy('getGameAchievements').and.returnValue(of([]))
+  };
+
+  const mockAuthService = {
+    currentUser: of(null) as Observable<User | null>,
+    getCurrentUser: jasmine.createSpy('getCurrentUser').and.returnValue(null)
+  };
+
+  const mockGameService = {
+    getUserGames: jasmine.createSpy('getUserGames').and.returnValue([]),
+    updateGame: jasmine.createSpy('updateGame').and.returnValue({ success: true }),
+    deleteGame: jasmine.createSpy('deleteGame').and.returnValue({ success: true })
+  };
+
+  // Mocks para los componentes hijos @ViewChild
+  const mockGameDetailModalComponent = {
+    show: jasmine.createSpy('show')
+  };
+
+  const mockConfirmationModalComponent = {
+    show: jasmine.createSpy('show'),
+    hide: jasmine.createSpy('hide')
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        MyLibraryComponent,
-        MockGameCardComponent,
-        MockGameDetailModalComponent,
-        MockConfirmationModalComponent
+      imports: [
+        HttpClientTestingModule
       ],
-      imports: [FormsModule],
+      declarations: [
+        MyLibraryComponent
+      ],
       providers: [
-        { provide: Router, useValue: { navigate: () => { } } }
-      ]
+        { provide: ApiService, useValue: mockApiService },
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: GameService, useValue: mockGameService }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MyLibraryComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    // Asigna los mocks a las propiedades @ViewChild del componente
+    component.gameDetailModal = mockGameDetailModalComponent as any;
+    component.confirmationModal = mockConfirmationModalComponent as any;
+
+    // Resetear espías para cada test
+    mockApiService.getGameDetails.calls.reset();
+    mockApiService.getGameAchievements.calls.reset();
+    mockAuthService.currentUser = of(null) as Observable<User | null>;
+    mockAuthService.getCurrentUser.calls.reset();
+    mockGameService.getUserGames.calls.reset();
+    mockGameService.updateGame.calls.reset();
+    mockGameService.deleteGame.calls.reset();
+    mockGameDetailModalComponent.show.calls.reset();
+    mockConfirmationModalComponent.show.calls.reset();
+    mockConfirmationModalComponent.hide.calls.reset();
   });
 
   it('debería crearse', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('no debería cargar juegos si no hay usuario logueado', () => {
+    mockAuthService.currentUser = of(null);
+
+    fixture.detectChanges();
+
+    expect(component.currentUser).toBeNull();
+    expect(mockGameService.getUserGames).not.toHaveBeenCalled();
+    expect(component.allUserGames).toEqual([]);
+    expect(component.filteredGames).toEqual([]);
+  });
+
+  it('debería desuscribirse de las suscripciones al destruir el componente', () => {
+    // Necesitamos una instancia real de Subscription para espiar
+    const authSub = of(null).subscribe();
+    (component as any).authSubscription = authSub; // Asignar el Subscription real para poder espiar su método unsubscribe
+
+    spyOn(authSub, 'unsubscribe');
+
+    component.ngOnDestroy();
+
+    expect(authSub.unsubscribe).toHaveBeenCalled();
   });
 });

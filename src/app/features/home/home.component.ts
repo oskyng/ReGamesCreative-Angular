@@ -23,6 +23,8 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 export class HomeComponent implements OnInit {
 	categories: { name: string, iconClass: string }[] = [];
 	private categoriesSubscription!: Subscription;
+	gameDetailModal: any;
+	confirmationModal: any;
 
 	constructor(
 		private readonly authService: AuthService,
