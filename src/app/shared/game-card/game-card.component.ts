@@ -35,4 +35,9 @@ export class GameCardComponent {
 
 	constructor() { }
 
+	onImageError(event: Event): void {
+		const target = event.target as HTMLImageElement;
+		target.src = 'assets/images/default-game-cover.png';
+	}
+
 }

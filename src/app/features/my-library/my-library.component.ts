@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, of, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/api/api.service';
 import { AuthService, User } from 'src/app/core/auth/auth.service';
@@ -44,6 +45,7 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 	confirmationModalConfirmText: string = '';
 
 	private authSubscription!: Subscription;
+	private loadGamesSubscription!: Subscription;
 
 	@ViewChild(GameDetailModalComponent) gameDetailModal!: GameDetailModalComponent;
 	@ViewChild(ConfirmationModalComponent) confirmationModal!: ConfirmationModalComponent;
@@ -51,11 +53,11 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly gameService: GameService,
-		private readonly rawgApiService: ApiService
+		private readonly rawgApiService: ApiService,
+        private readonly router: Router
 	) { }
 
 	ngOnInit(): void {
-		// Suscribe al estado de autenticación para cargar los juegos del usuario
 		this.authSubscription = this.authService.currentUser.subscribe(user => {
 			this.currentUser = user;
 			if (this.currentUser) {
@@ -63,6 +65,8 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 			} else {
 				this.allUserGames = [];
 				this.filteredGames = [];
+                // Redirigir a login si no hay usuario
+                this.router.navigate(['/login']);
 			}
 		});
 	}
@@ -70,8 +74,22 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 	// Carga los juegos del usuario desde el GameService
 	loadUserGames(): void {
 		if (this.currentUser) {
-			this.allUserGames = this.gameService.getUserGames(this.currentUser.username);
-			this.filterAndRenderGames();
+            // Cancelar suscripción anterior si existe
+            if (this.loadGamesSubscription) {
+                this.loadGamesSubscription.unsubscribe();
+            }
+            this.loadGamesSubscription = this.gameService.getUserGames(this.currentUser.username).subscribe({
+                next: (games) => {
+                    this.allUserGames = games;
+                    this.filterAndRenderGames();
+                },
+                error: (err) => {
+                    this.error = 'Error al cargar los juegos de tu biblioteca.';
+                    console.error(err);
+                    this.allUserGames = [];
+                    this.filteredGames = [];
+                }
+            });
 		}
 	}
 
@@ -109,24 +127,46 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 		if (!this.currentUser) { this.error = 'Debes iniciar sesión para marcar favoritos.'; return; }
 		const gameToUpdate = this.allUserGames.find(game => game.id === gameId);
 		if (gameToUpdate) {
-			gameToUpdate.isFavorite = !gameToUpdate.isFavorite;
-			this.gameService.updateGame(this.currentUser.username, gameToUpdate);
-			this.filterAndRenderGames();
-		}
-	}
-
-	// Maneja el toggle de jugado/pendiente
-	handleTogglePlayed(gameId: number): void {
-		if (!this.currentUser) { this.error = 'Debes iniciar sesión para actualizar el estado.'; return; }
-		const gameToUpdate = this.allUserGames.find(game => game.id === gameId);
-		if (gameToUpdate) {
-			gameToUpdate.played = !gameToUpdate.played;
-			this.gameService.updateGame(this.currentUser.username, gameToUpdate);
-			this.filterAndRenderGames();
+			const updatedGame = { ...gameToUpdate, isFavorite: !gameToUpdate.isFavorite };
+			this.gameService.updateGame(this.currentUser.username, updatedGame).subscribe({
+				next: (result) => {
+					if(result.success) {
+						this.loadUserGames(); // Recarga la lista para reflejar el cambio
+					} else {
+						this.error = result.message;
+					}
+				},
+				error: (err) => {
+					this.error = 'Error al actualizar el favorito.';
+					console.error(err);
+				}
+			});
 		}
 	}
 
 	// Maneja la actualización de horas jugadas
+	handleTogglePlayed(gameId: number): void {
+		if (!this.currentUser) { this.error = 'Debes iniciar sesión para actualizar el estado.'; return; }
+		const gameToUpdate = this.allUserGames.find(game => game.id === gameId);
+		if (gameToUpdate) {
+			const updatedGame = { ...gameToUpdate, played: !gameToUpdate.played };
+			this.gameService.updateGame(this.currentUser.username, updatedGame).subscribe({
+                next: (result) => {
+                    if(result.success) {
+                        this.loadUserGames(); // Recarga la lista para reflejar el cambio
+                    } else {
+                        this.error = result.message;
+                    }
+                },
+                error: (err) => {
+                    this.error = 'Error al actualizar el estado de jugado.';
+                    console.error(err);
+                }
+            });
+		}
+	}
+
+	// Prepara y muestra el modal de confirmación para eliminar un juego
 	handleUpdateHoursPlayed(gameId: number): void {
 		if (!this.currentUser) { this.error = 'Debes iniciar sesión para actualizar las horas.'; return; }
 		const gameToUpdate = this.allUserGames.find(game => game.id === gameId);
@@ -135,9 +175,20 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 			if (newHoursStr !== null) {
 				const parsedHours = parseFloat(newHoursStr);
 				if (!isNaN(parsedHours) && parsedHours >= 0) {
-					gameToUpdate.hoursPlayed = parsedHours;
-					this.gameService.updateGame(this.currentUser.username, gameToUpdate);
-					this.filterAndRenderGames();
+					const updatedGame = { ...gameToUpdate, hoursPlayed: parsedHours };
+					this.gameService.updateGame(this.currentUser.username, updatedGame).subscribe({
+                        next: (result) => {
+                            if(result.success) {
+                                this.loadUserGames(); // Recarga la lista para reflejar el cambio
+                            } else {
+                                this.error = result.message;
+                            }
+                        },
+                        error: (err) => {
+                            this.error = 'Error al actualizar las horas jugadas.';
+                            console.error(err);
+                        }
+                    });
 				} else {
 					this.error = 'Entrada no válida. Por favor, introduce un número positivo.';
 				}
@@ -145,7 +196,6 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	// Prepara y muestra el modal de confirmación para eliminar un juego
 	handleDeleteGameConfirmation(gameId: number): void {
 		if (!this.currentUser) {
 			this.error = 'Debes iniciar sesión para eliminar juegos.';
@@ -153,45 +203,46 @@ export class MyLibraryComponent implements OnInit, OnDestroy {
 		}
 		const gameToDelete = this.allUserGames.find(game => game.id === gameId);
 		if (gameToDelete) {
-			this.gameIdToDelete = gameId; // Almacena el ID del juego a eliminar
+			this.gameIdToDelete = gameId;
 			this.confirmationModalTitle = 'Eliminar Juego';
 			this.confirmationModalMessage = `¿Estás seguro de que quieres eliminar "${gameToDelete.title}" de tu biblioteca? Esta acción no se puede deshacer.`;
 			this.confirmationModalConfirmText = 'Eliminar';
-			this.confirmationModal.show(); // Muestra el modal de confirmación
+			this.confirmationModal.show();
 		}
 	}
 
 	// Maneja la respuesta del modal de confirmación
 	onDeleteConfirmation(confirmed: boolean): void {
 		if (confirmed && this.gameIdToDelete !== null) {
-			if (!this.currentUser) { /* Esto no debería pasar si el guardián de arriba funciona */ return; }
-			this.gameService.deleteGame(this.currentUser.username, this.gameIdToDelete);
-			this.loadUserGames(); // Vuelve a cargar y renderizar los juegos
+			if (!this.currentUser) { return; }
+			this.gameService.deleteGame(this.currentUser.username, this.gameIdToDelete).subscribe({
+                next: (result) => {
+                    if(result.success) {
+                        this.loadUserGames();
+                    } else {
+                        this.error = result.message;
+                    }
+                },
+                error: (err) => {
+                    this.error = 'Error al eliminar el juego.';
+                    console.error(err);
+                }
+            });
 		}
-		this.gameIdToDelete = null; // Limpia el ID del juego a eliminar
+		this.gameIdToDelete = null;
 	}
 
 	// Abre el modal de detalles del juego utilizando el componente modal hijo
 	openGameDetailModal(game: Game): void {
-		this.rawgApiService.getGameDetails(game.id).pipe(
-			catchError(err => {
-				console.error('Error al obtener detalles completos del juego de RAWG API:', err);
-				return of(game);
-			})
-		).subscribe(fullDetailsGame => {
-			this.selectedGameForModal = {
-				...fullDetailsGame,
-				achievements: game.achievements
-			};
-			if (this.gameDetailModal) {
-				this.gameDetailModal.show();
-			}
-		});
+		this.router.navigate(['/juego', game.id]);
 	}
 
 	ngOnDestroy(): void {
 		if (this.authSubscription) {
 			this.authSubscription.unsubscribe();
 		}
+        if (this.loadGamesSubscription) {
+            this.loadGamesSubscription.unsubscribe();
+        }
 	}
 }

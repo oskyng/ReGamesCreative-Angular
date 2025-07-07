@@ -72,15 +72,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		}
 
 		const newUser = this.registerForm.value;
-		const result = this.authService.register(newUser);
-
-		if (result.success) {
-			this.registerMessage = '<div class="alert alert-success">Registro exitoso. Redirigiendo a Login...</div>';
-			setTimeout(() => { this.router.navigate(['/login']); }, 1000);
-		} else {
-			this.registerMessage = `<div class="alert alert-danger">${result.message}</div>`;
-		}
-
+		this.authService.register(newUser).subscribe({
+            next: (result) => {
+                if (result.success) {
+                    this.registerMessage = '<div class="alert alert-success">Registro exitoso. Redirigiendo a Login...</div>';
+                    setTimeout(() => { this.router.navigate(['/login']); }, 1000);
+                } else {
+                    this.registerMessage = `<div class="alert alert-danger">${result.message}</div>`;
+                }
+            },
+            error: (err) => {
+                this.registerMessage = `<div class="alert alert-danger">Ocurrió un error inesperado durante el registro.</div>`;
+                console.error(err);
+            }
+        });
 	}
 
 	ngOnDestroy(): void {

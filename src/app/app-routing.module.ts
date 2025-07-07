@@ -8,18 +8,20 @@ import { RecoverPasswordComponent } from './features/recover-password/recover-pa
 import { RegisterComponent } from './features/register/register.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { authGuard } from './guards/auth.guard';
+import { GameDetailPageComponent } from './features/game-detail-page/game-detail-page.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/inicio', pathMatch: 'full' },
-	{ path: 'inicio', component: HomeComponent },
+	{ path: '', redirectTo: '/home', pathMatch: 'full' },
+	{ path: 'home', component: HomeComponent },
 	{ path: 'my-librery', component: MyLibraryComponent, canActivate: [authGuard] },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'profile', component: UserProfileComponent, canActivate: [authGuard] },
 	{ path: 'recover-password', component: RecoverPasswordComponent },
-	{ path: 'categorias/:categorySlug', component: CategoryComponent },
+	{ path: 'category/:categorySlug', component: CategoryComponent },
+	{ path: 'game/:id', component: GameDetailPageComponent },
 	// Ruta comodín para 404 (redirecciona al inicio)
-	{ path: '**', redirectTo: '/inicio' }
+	{ path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

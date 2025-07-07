@@ -1,0 +1,83 @@
+<div class="container my-4">
+    <button class="btn btn-outline-secondary mb-4" (click)="goBack()">
+        <i class="fas fa-arrow-left me-2"></i> Volver
+    </button>
+
+    <div *ngIf="isLoading" class="text-center my-5">
+        <output class="spinner-border text-primary">
+            <span class="visually-hidden">Cargando...</span>
+        </output>
+        <p class="mt-2 text-light">Cargando detalles del juego...</p>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger text-center my-5">
+        {{ error }}
+    </div>
+
+    <div *ngIf="game && !isLoading" class="card bg-dark text-light shadow-lg border-primary">
+        <div class="row g-0">
+            <div class="col-md-5">
+                <img [src]="game.image" class="img-fluid rounded-start h-100 object-fit-cover" [alt]="'Portada ' + game.title"
+                    (error)="onImageError($event)">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body p-4">
+                    <h1 class="card-title text-primary mb-3">{{ game.title }}</h1>
+                    <p class="card-text small mb-2">
+                        <i class="fas fa-gamepad me-1"></i> Plataforma: {{ game.platform }}
+                        <span class="mx-2">|</span>
+                        <i class="fas fa-tags me-1"></i> Género: {{ game.genre }}
+                    </p>
+                    <p class="card-text text-light mb-4" [innerHTML]="game.description"></p>
+
+                    <p class="text-secondary mb-3"><i class="fas fa-clock me-2"></i>Horas de juego: {{ game.hoursPlayed }}h</p>
+
+                    <div class="d-grid gap-2">
+                        <button *ngIf="currentUser && !isGameInUserLibrary" class="btn btn-success btn-lg" (click)="handleAddToLibrary()">
+                            <i class="fas fa-plus-circle me-2"></i> Añadir a Mi Biblioteca
+                        </button>
+                        <button *ngIf="currentUser && isGameInUserLibrary" class="btn btn-info btn-lg" disabled>
+                            <i class="fas fa-check-circle me-2"></i> Ya en tu Biblioteca
+                        </button>
+                        <button *ngIf="!currentUser" class="btn btn-secondary btn-lg" disabled>
+                            Inicia sesión para añadir a la biblioteca
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer bg-secondary bg-opacity-25 p-4 mt-4">
+            <h3 class="text-primary mb-3 text-center">Logros / Trofeos</h3>
+            <div *ngIf="game.achievements && game.achievements.length > 0; else noAchievements" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                <div class="col" *ngFor="let achievement of game.achievements; let i = index">
+                    <div class="card h-100 bg-dark border-light">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                                <img *ngIf="achievement.image" [src]="achievement.image" class="rounded-circle me-3" alt="Logro" style="width: 60px; height: 60px; object-fit: cover;" (error)="onAchievementImageError($event)">
+                                <div class="flex-grow-1">
+                                    <h5 class="card-title text-light mb-0">{{ achievement.name }}</h5>
+                                    <span *ngIf="achievement.percent !== undefined" class="badge bg-info mt-1">{{ achievement.percent | number:'1.0-0' }}% de jugadores</span>
+                                </div>
+                            </div>
+                            <p class="card-text small flex-grow-1">{{ achievement.description }}</p>
+                            <div class="form-check mt-auto">
+                                <input class="form-check-input" type="checkbox"
+                                       [id]="'achievement-' + game.id + '-' + i"
+                                       [checked]="achievement.completed"
+                                       [disabled]="!currentUser || !isGameInUserLibrary"
+                                       (change)="onAchievementChange(i, $event)">
+                                <label class="form-check-label text-light" [for]="'achievement-' + game.id + '-' + i" [class.text-decoration-line-through]="achievement.completed">
+                                    Completado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noAchievements>
+                <p class="text-light text-center">No hay logros disponibles para este juego.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

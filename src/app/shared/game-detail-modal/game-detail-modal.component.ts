@@ -117,13 +117,14 @@ export class GameDetailModalComponent {
 		const isCompleted = (event.target as HTMLInputElement).checked;
 
 		// Obtiene los juegos del usuario desde el servicio
-		const userGames = this.gameService.getUserGames(currentUser.username);
-		const gameToUpdate = userGames.find(g => g.id === gameId);
+		this.gameService.getUserGames(currentUser.username).subscribe(userGames => {
+			const gameToUpdate = userGames.find(g => g.id === gameId);
 
-		if (gameToUpdate?.achievements) {
-			gameToUpdate.achievements[achievementIndex].completed = isCompleted;
-			this.gameService.updateGame(currentUser.username, gameToUpdate);
-			this.achievementUpdated.emit({ gameId, achievementIndex, completed: isCompleted });
-		}
+			if (gameToUpdate?.achievements) {
+				gameToUpdate.achievements[achievementIndex].completed = isCompleted;
+				this.gameService.updateGame(currentUser.username, gameToUpdate);
+				this.achievementUpdated.emit({ gameId, achievementIndex, completed: isCompleted });
+			}
+		});
 	}
 }

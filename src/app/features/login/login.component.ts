@@ -24,7 +24,6 @@ import { emptyStringValidator } from 'src/app/utils/validator';
 export class LoginComponent implements OnInit, OnDestroy {
 	username = '';
 	password = '';
-
 	loginForm!: FormGroup;
 	loginMessage: string = '';
 	private readonly authSubscription!: Subscription;
@@ -52,14 +51,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 		}
 
 		const { username, password } = this.loginForm.value;
-		const result = this.authService.login(username, password);
-
-		if (result.success) {
-			this.loginMessage = '<div class="alert alert-success">Inicio de sesión exitoso. Redirigiendo...</div>';
-			setTimeout(() => { this.router.navigate(['/mi-biblioteca']); }, 1000);
-		} else {
-			this.loginMessage = `<div class="alert alert-danger">${result.message}</div>`;
-		}
+		this.authService.login(username, password).subscribe({
+            next: (result) => {
+                if (result.success) {
+                    this.loginMessage = '<div class="alert alert-success">Inicio de sesión exitoso. Redirigiendo...</div>';
+                    setTimeout(() => { this.router.navigate(['/mi-biblioteca']); }, 1000);
+                } else {
+                    this.loginMessage = `<div class="alert alert-danger">${result.message}</div>`;
+                }
+            },
+            error: (err) => {
+                this.loginMessage = `<div class="alert alert-danger">Ocurrió un error inesperado durante el inicio de sesión.</div>`;
+                console.error(err);
+            }
+        });
 	}
 
 	ngOnDestroy(): void {

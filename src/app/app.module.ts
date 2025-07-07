@@ -18,6 +18,7 @@ import { RecoverPasswordComponent } from './features/recover-password/recover-pa
 import { AuthService } from './core/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
+import { GameDetailPageComponent } from './features/game-detail-page/game-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ConfirmationModalComponent } from './shared/confirmation-modal/confirma
     RegisterComponent,
     UserProfileComponent,
     RecoverPasswordComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    GameDetailPageComponent
   ],
   imports: [
     BrowserModule,

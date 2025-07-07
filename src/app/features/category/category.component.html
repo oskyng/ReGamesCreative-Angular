@@ -1,38 +1,59 @@
-<main class="container my-5">
-    <div *ngIf="message" class="alert alert-success mt-3 text-center">{{ message }}</div>
-	<div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
-    <h2 class="text-center mb-5 text-primary">Juegos de {{ categoryName }}</h2>
-
-    <section id="search-filter" class="row mb-4 gx-3 justify-content-center">
-        <div class="col-md-5 col-lg-4 mb-3">
-            <input type="text" id="search-input" class="form-control" placeholder="Buscar videojuegos..." [(ngModel)]="searchTerm" (ngModelChange)="filterGames()">
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Buscar juego..." [(ngModel)]="searchTerm" (input)="filterGames()">
         </div>
-        <div class="col-md-3 col-lg-2 mb-3">
-            <select id="platform-filter" class="form-select" [(ngModel)]="selectedPlatform" (ngModelChange)="filterGames()">
+        <div class="col-md-4">
+            <select class="form-select" [(ngModel)]="selectedPlatform" (change)="filterGames()">
                 <option value="">Todas las plataformas</option>
                 <option *ngFor="let platform of availablePlatforms" [value]="platform">{{ platform }}</option>
             </select>
         </div>
-        <div class="col-md-3 col-lg-2 mb-3">
-            <select id="genre-filter" class="form-select" [(ngModel)]="selectedGenre" (ngModelChange)="filterGames()">
+        <div class="col-md-4">
+            <select class="form-select" [(ngModel)]="selectedGenre" (change)="filterGames()">
                 <option value="">Todos los géneros</option>
                 <option *ngFor="let genre of availableGenres" [value]="genre">{{ genre }}</option>
             </select>
         </div>
-    </section>
+    </div>
 
-    <section id="games" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <ng-container *ngIf="filteredGames.length > 0; else noGamesFound">
-            <div class="col" *ngFor="let game of filteredGames">
-                <app-game-card [game]="game" (addGameToLibrary)="handleAddToLibrary($event)" (viewDetails)="openGameDetailModal($event)"></app-game-card>
-            </div>
-        </ng-container>
-        <ng-template #noGamesFound>
-            <div class="col-12 text-center text-light">
-                <p>No se encontraron juegos para esta categoría con los filtros aplicados.</p>
-            </div>
-        </ng-template>
-    </section>
-</main>
+    <div class="row mb-4">
+        <div class="col">
+            <button class="btn btn-outline-secondary" (click)="resetPaginationAndFilters()">Restablecer Filtros y Paginación</button>
+        </div>
+    </div>
 
-<app-game-detail-modal [game]="selectedGameForModal"></app-game-detail-modal>
+    <h2 class="text-center mb-4">Videojuegos de {{ categoryName }}</h2>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+    <div *ngIf="message" class="alert alert-success">{{ message }}</div>
+
+    <div *ngIf="filteredGames.length === 0 && !isLoading" class="alert alert-info text-center">
+        No se encontraron videojuegos que coincidan con los filtros.
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" *ngFor="let game of filteredGames">
+            <app-game-card
+                [game]="game"
+                (addGameToLibrary)="handleAddToLibrary($event)"
+                (viewDetails)="openGameDetailModal($event)">
+            </app-game-card>
+        </div>
+    </div>
+
+    <!-- Indicador de carga para el scroll infinito -->
+    <div *ngIf="isLoading" class="text-center mt-4">
+        <output class="spinner-border text-primary">
+            <span class="visually-hidden">Cargando más juegos...</span>
+        </output>
+        <p class="mt-2">Cargando más juegos...</p>
+    </div>
+
+    <div *ngIf="!hasMorePages && filteredGames.length > 0 && !isLoading" class="text-center mt-4 text-muted">
+        Has llegado al final de los resultados.
+    </div>
+</div>
+
+<!-- Modal de Detalle de Juego (asegúrate de que este componente esté declarado en tu AppModule o en el componente padre si es standalone) -->
+<app-game-detail-modal></app-game-detail-modal>

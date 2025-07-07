@@ -40,7 +40,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 			this.currentUser = user;
 			if (user) {
 				this.initProfileForm(user);
-			}
+			} else {
+                this.router.navigate(['/login']);
+            }
 		});
 	}
 
@@ -50,7 +52,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 			fullName: [user.fullName, [Validators.required, emptyStringValidator()]],
 			username: [user.username, [Validators.required, emptyStringValidator()]],
 			email: [{ value: user.email, disabled: true }, [Validators.required, emailValidator()]],
-			birthDay: [Date.parse(user.birthDay), [Validators.required, minAgeValidator(13)]],
+			birthDay: [user.birthDay, [Validators.required, minAgeValidator(13)]],
 			password: [user.password, [Validators.required, passwordStrengthValidator()]]
 		});
 	}
@@ -71,20 +73,29 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 		const updatedData: User = {
 			fullName: this.profileForm.get('fullName')?.value,
 			username: this.profileForm.get('username')?.value,
-			email: this.currentUser.email,
+			email: this.currentUser.email, // Se mantiene el email original ya que está deshabilitado para edición
 			birthDay: this.profileForm.get('birthDay')?.value,
 			password: this.profileForm.get('password')?.value,
 			role: this.currentUser.role
 		};
 
-		const result = this.authService.updateProfile(this.currentUser.username, updatedData);
+		// Guarda el oldUsername para la llamada al servicio
+		const oldUsername = this.currentUser.username;
 
-		if (result.success) {
-			this.profileMessage = `<div class="alert alert-success">${result.message}</div>`;
-			setTimeout(() => { this.router.navigate(['/inicio']); }, 1000); // Redirige al inicio
-		} else {
-			this.profileMessage = `<div class="alert alert-danger">${result.message}</div>`;
-		}
+		this.authService.updateProfile(oldUsername, updatedData).subscribe({
+            next: (result) => {
+                if (result.success) {
+                    this.profileMessage = `<div class="alert alert-success">${result.message}</div>`;
+                    setTimeout(() => { this.router.navigate(['/inicio']); }, 1000);
+                } else {
+                    this.profileMessage = `<div class="alert alert-danger">${result.message}</div>`;
+                }
+            },
+            error: (err) => {
+                this.profileMessage = `<div class="alert alert-danger">Ocurrió un error inesperado al actualizar el perfil.</div>`;
+                console.error(err);
+            }
+        });
 	}
 
 	// Desuscribe para evitar fugas de memoria

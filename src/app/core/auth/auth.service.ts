@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, of, tap } from 'rxjs';
+import mockUsersDataArray from '../../../assets/mock-users.json';
 
 // Claves de almacenamiento
 const AUTH_STORAGE_KEY = 'my_game_library_users';
@@ -12,22 +13,21 @@ export interface User {
 	email: string;
 	birthDay: string;
 	password: string;
-	role: 'admin' | 'normal';
+	role: string;
 }
+
+const _mockUsers: User[] = JSON.parse(JSON.stringify(mockUsersDataArray));
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
+	private readonly CURRENT_USER_KEY = 'currentUser';
 	private readonly currentUserSubject: BehaviorSubject<User | null>;
-  	public currentUser: Observable<User | null>;
+	public currentUser: Observable<User | null>;
 
 	constructor() {
-		this.init();
-		const storedUser = localStorage.getItem(CURRENT_USER_KEY);
-		this.currentUserSubject = new BehaviorSubject<User | null>(
-			storedUser ? JSON.parse(storedUser) : null
-		);
+		this.currentUserSubject = new BehaviorSubject<User | null>(null);
 		this.currentUser = this.currentUserSubject.asObservable();
 	}
 
@@ -53,77 +53,107 @@ export class AuthService {
 	}
 
 	// Iniciar sesión
-  	login(username: string, password: string): { success: boolean; message?: string } {
-		const users: User[] = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) ?? '[]');
-		const user = users.find(u => u.username === username && u.password === password);
-		if (user) {
-            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
-			this.currentUserSubject.next(user);
-            return { success: true };
-        }
+	login(username: string, password: string): Observable<{ success: boolean, message: string }> {
+		return of(null).pipe(
+			delay(500),
+			map(() => {
+				const user = _mockUsers.find(u => u.username === username && u.password === password);
 
-		return { success: false, message: 'Nombre de usuario o contraseña incorrectos.' };
+				if (user) {
+					this.currentUserSubject.next(user);
+					console.log('[AuthService] Usuario logueado:', user);
+					return { success: true, message: 'Inicio de sesión exitoso.' };
+				} else {
+					return { success: false, message: 'Nombre de usuario o contraseña incorrectos.' };
+				}
+			})
+		);
 	}
 
 	// Registrar usuario
-	register(newUser: User): { success: boolean; message?: string } {
-        const users = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) ?? '[]');
-        if (users.some((u: { username: string; }) => u.username === newUser.username)) {
-            return { success: false, message: 'El nombre de usuario ya existe.' };
-        }
-        users.push(newUser);
-        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(users));
+	register(newUser: User): Observable<{ success: boolean, message: string }> {
+		return of(null).pipe(
+			delay(500),
+			map(() => {
+				if (_mockUsers.some(u => u.username === newUser.username)) {
+					return { success: false, message: 'El nombre de usuario ya existe.' };
+				}
+				if (_mockUsers.some(u => u.email === newUser.email)) {
+					return { success: false, message: 'El correo electrónico ya está registrado.' };
+				}
 
-        return { success: true, message: 'Registro exitoso. ¡Ahora puedes iniciar sesión!' };
-    }
-
-	// Función para actualizar la contrasena de un usuario
-	updatePassword (userEmail: string, newPassword: string): { success: boolean; message?: string } {
-        let users = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) ?? '[]');
-        const userIndex = users.findIndex((u: { email: string; }) => u.email === userEmail);
-
-        if (userIndex === -1) {
-            return { success: false, message: 'Usuario no encontrado.' };
-        }
-
-        users[userIndex].password = newPassword;
-        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(users));
-
-		const currentUser = this.getCurrentUser;
-        if (currentUser && currentUser.email === userEmail) {
-            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(users[userIndex]));
-        }
-
-        return { success: true, message: 'Contraseña actualizada correctamente. Redirigiendo a Login...' };
-    }
-
-	// Función para actualizar el perfil de un usuario
-	updateProfile(originalUsername: string, newUserData: User): { success: boolean; message?: string } {
-		let users = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) ?? '[]');
-        const userIndex = users.findIndex((u: { username: string; }) => u.username === originalUsername);
-
-		if (userIndex === -1) {
-            return { success: false, message: 'Usuario no encontrado.' };
-        }
-
-		// Si el nuevo nombre de usuario es diferente y ya existe
-        if (newUserData.username && newUserData.username !== originalUsername && users.some((u: { username: string; }) => u.username === newUserData.username)) {
-            return { success: false, message: 'El nuevo nombre de usuario ya está en uso.' };
-        }
-
-		users[userIndex] = { ...users[userIndex], ...newUserData };
-        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(users));
-		
-		const currentUser = this.getCurrentUser;
-        if (currentUser && currentUser.username === originalUsername) {
-            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(users[userIndex]));
-        }
-
-		return { success: true, message: 'Perfil actualizado correctamente.' };
+				// Por simplicidad, todos los nuevos usuarios son 'user'
+				const userToSave: User = { ...newUser, role: 'user' };
+				_mockUsers.push(userToSave);
+				console.log('[AuthService] Nuevo usuario registrado:', userToSave);
+				return { success: true, message: 'Registro exitoso. Ahora puedes iniciar sesión.' };
+			})
+		);
 	}
 
-	logout(): void {
-        localStorage.removeItem(CURRENT_USER_KEY);
-		this.currentUserSubject.next(null);
-    }
+	// Función para actualizar la contrasena de un usuario
+	updatePassword(email: string, newPassword: string): Observable<{ success: boolean, message: string }> {
+		return of(null).pipe(
+			delay(500),
+			map(() => {
+				const user = _mockUsers.find(u => u.email === email);
+
+				if (!user) {
+					return { success: false, message: 'Correo electrónico no encontrado.' };
+				}
+
+				user.password = newPassword;
+				// Si el usuario actual es el que se actualizó, también actualiza el BehaviorSubject
+				if (this.currentUserSubject.value?.email === email) {
+					this.currentUserSubject.next(user);
+				}
+				console.log('[AuthService] Contraseña actualizada para:', user.username);
+				return { success: true, message: 'Contraseña actualizada correctamente. Por favor, inicia sesión con tu nueva contraseña.' };
+			})
+		);
+	}
+
+	// Función para actualizar el perfil de un usuario
+	updateProfile(oldUsername: string, updatedUser: User): Observable<{ success: boolean, message: string }> {
+		return of(null).pipe(
+			delay(500),
+			map(() => {
+				const index = _mockUsers.findIndex(u => u.username === oldUsername);
+
+				if (index === -1) {
+					return { success: false, message: 'Usuario no encontrado.' };
+				}
+
+				// Verificar si el nuevo nombre de usuario o email ya están en uso por otro usuario
+				if (updatedUser.username !== oldUsername && _mockUsers.some(u => u.username === updatedUser.username)) {
+					return { success: false, message: 'El nuevo nombre de usuario ya está en uso.' };
+				}
+				if (updatedUser.email !== _mockUsers[index].email && _mockUsers.some(u => u.email === updatedUser.email)) {
+					return { success: false, message: 'El nuevo correo electrónico ya está en uso.' };
+				}
+
+				// Mantener el rol original del usuario
+				const userWithOriginalRole: User = { ...updatedUser, role: _mockUsers[index].role };
+				_mockUsers[index] = userWithOriginalRole;
+
+				// Si el usuario actual es el que se actualizó, también actualiza el BehaviorSubject
+				if (this.currentUserSubject.value?.username === oldUsername) {
+					this.currentUserSubject.next(userWithOriginalRole);
+				}
+				console.log('[AuthService] Perfil de usuario actualizado:', userWithOriginalRole);
+				return { success: true, message: 'Perfil actualizado correctamente.' };
+			})
+		);
+	}
+
+	logout(): Observable<void> {
+		return of(null).pipe(
+			delay(200),
+			tap(() => {
+				this.currentUserSubject.next(null);
+				console.log('[AuthService] Sesión cerrada.');
+			}),
+			map(() => void 0) // Emite void
+		);
+	}
 }

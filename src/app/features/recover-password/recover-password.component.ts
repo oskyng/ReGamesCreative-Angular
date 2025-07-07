@@ -59,14 +59,20 @@ export class RecoverPasswordComponent implements OnInit, OnDestroy {
 		}
 
 		const { email, newPassword } = this.recoveryForm.value;
-		const result = this.authService.updatePassword(email, newPassword);
-
-		if (result.success) {
-			this.recoveryMessage = `<div class="alert alert-success">${result.message}</div>`;
-			setTimeout(() => { this.router.navigate(['/login']); }, 1000);
-		} else {
-			this.recoveryMessage = `<div class="alert alert-danger">${result.message}</div>`;
-		}
+		this.authService.updatePassword(email, newPassword).subscribe({
+            next: (result) => {
+                if (result.success) {
+                    this.recoveryMessage = `<div class="alert alert-success">${result.message}</div>`;
+                    setTimeout(() => { this.router.navigate(['/login']); }, 1000);
+                } else {
+                    this.recoveryMessage = `<div class="alert alert-danger">${result.message}</div>`;
+                }
+            },
+            error: (err) => {
+                this.recoveryMessage = `<div class="alert alert-danger">Ocurrió un error inesperado al recuperar la contraseña.</div>`;
+                console.error(err);
+            }
+        });
 	}
 
 	ngOnDestroy(): void {

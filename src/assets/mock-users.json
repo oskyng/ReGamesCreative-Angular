@@ -1,0 +1,18 @@
+[
+  {
+    "username": "admin",
+    "email": "admin@regames.com",
+    "fullName": "Administrador ReGames",
+    "birthDay": "1990-01-01",
+    "password": "Password123!",
+    "role": "admin"
+  },
+  {
+    "username": "user1",
+    "email": "user1@example.com",
+    "fullName": "Usuario Uno",
+    "birthDay": "1995-05-10",
+    "password": "Password123!",
+    "role": "normal"
+  }
+]
